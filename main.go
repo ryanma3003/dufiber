@@ -7,7 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
-	"github.com/ryanma3003/daulatumat/db"
+	"github.com/ryanma3003/dufiber/db"
 )
 
 func main() {

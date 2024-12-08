@@ -1,4 +1,4 @@
-module github.com/ryanma3003/daulatumat
+module github.com/ryanma3003/dufiber
 
 go 1.21.5
 
