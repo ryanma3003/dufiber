@@ -41,3 +41,11 @@ func NewErrorUserPasswordIncorrect() AppError {
 		Message: "Password incorrect",
 	}
 }
+
+// general error
+func NewErrorRowNotFound() AppError {
+	return AppError{
+		Code:    fiber.StatusNotFound,
+		Message: "User not found",
+	}
+}

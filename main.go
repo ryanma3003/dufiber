@@ -10,24 +10,24 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/ryanma3003/dufiber/db"
-	"github.com/ryanma3003/dufiber/infrastructure/repository"
+	"github.com/ryanma3003/dufiber/internal/infrastructure/database"
+	"github.com/ryanma3003/dufiber/internal/infrastructure/repository"
 	"github.com/ryanma3003/dufiber/internal/interfaces/http/controllers"
 	"github.com/ryanma3003/dufiber/internal/service"
 )
 
 func main() {
-	config, err := db.LoadConfig(".")
+	config, err := database.LoadConfig(".")
 	if err != nil {
 		log.Fatal("Cannot load config:", err)
 	}
 
-	db.ConnectDB(config)
+	database.ConnectDB(config)
 
 	userRepo := repository.NewUserRepository()
 
-	userService := service.NewUserService(userRepo, db.ConnectDB(config))
-	authService := service.NewAuthService(userRepo, db.ConnectDB(config))
+	userService := service.NewUserService(userRepo, database.DB)
+	authService := service.NewAuthService(userRepo, database.DB)
 
 	userController := controllers.NewUserController(userService)
 	authController := controllers.NewAuthController(authService)
