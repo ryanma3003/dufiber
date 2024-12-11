@@ -29,7 +29,7 @@ func (r *BlogRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, blog *entity.
 
 func (r *BlogRepositoryImpl) Update(ctx context.Context, tx *sql.Tx, blog *entity.Blog) error {
 	sql := `UPDATE blog SET title=$1, content=$2, image=$3, slug=$4, author=$5, blog_category_id=$6, user_id=$7, updated_at=NOW() WHERE id=$8`
-	if _, err := tx.ExecContext(ctx, sql, blog.Title, blog.Content, blog.Slug, blog.Image, blog.Author, blog.BlogCategoryId, blog.UserId, blog.Id); err != nil {
+	if _, err := tx.ExecContext(ctx, sql, blog.Title, blog.Content, blog.Image, blog.Slug, blog.Author, blog.BlogCategoryId, blog.UserId, blog.Id); err != nil {
 		return err
 	}
 	return nil
@@ -46,7 +46,7 @@ func (r *BlogRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, blog *entit
 func (r *BlogRepositoryImpl) FindByID(ctx context.Context, tx *sql.Tx, id int) (entity.Blog, error) {
 	var blog entity.Blog
 	sql := `SELECT id, title, content, image, author, user_id, blog_category_id, slug, created_at, updated_at FROM blog WHERE id=$1`
-	if err := tx.QueryRowContext(ctx, sql, id).Scan(&blog.Id, &blog.Title, &blog.Image, &blog.Slug, &blog.Content, &blog.Author, &blog.BlogCategoryId, &blog.UserId, &blog.CreatedAt, &blog.UpdatedAt); err != nil {
+	if err := tx.QueryRowContext(ctx, sql, id).Scan(&blog.Id, &blog.Title, &blog.Content, &blog.Image, &blog.Author, &blog.UserId, &blog.BlogCategoryId, &blog.Slug, &blog.CreatedAt, &blog.UpdatedAt); err != nil {
 		return blog, err
 	}
 	return blog, nil
@@ -55,7 +55,7 @@ func (r *BlogRepositoryImpl) FindByID(ctx context.Context, tx *sql.Tx, id int) (
 func (r *BlogRepositoryImpl) FindBySlug(ctx context.Context, tx *sql.Tx, slug string) (entity.Blog, error) {
 	var blog entity.Blog
 	sql := `SELECT id, title, image, slug, content, author, blog_category_id, user_id, created_at, updated_at FROM blog WHERE slug=$1`
-	if err := tx.QueryRowContext(ctx, sql, slug).Scan(&blog.Id, &blog.Title, &blog.Image, &blog.Content, &blog.Author, &blog.UserId, &blog.BlogCategoryId, &blog.Slug, &blog.CreatedAt, &blog.UpdatedAt); err != nil {
+	if err := tx.QueryRowContext(ctx, sql, slug).Scan(&blog.Id, &blog.Title, &blog.Image, &blog.Slug, &blog.Content, &blog.Author, &blog.BlogCategoryId, &blog.UserId, &blog.CreatedAt, &blog.UpdatedAt); err != nil {
 		return blog, err
 	}
 	return blog, nil
