@@ -29,5 +29,5 @@ CREATE TABLE `abouts` (
 )
 COLLATE='utf8mb4_unicode_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=2
+AUTO_INCREMENT=1
 ;

@@ -11,3 +11,8 @@ type User struct {
 	IsDeleted bool   `json:"is_deleted"`
 	DeletedAt string `json:"deleted_at"`
 }
+
+type Role struct {
+	Id   int    `json:"id"`
+	Name string `json:"name"`
+}
