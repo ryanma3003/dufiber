@@ -14,17 +14,17 @@ func NewBlogRepository() repository.BlogRepository {
 	return &BlogRepositoryImpl{}
 }
 
-func (r *BlogRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, user *entity.Blog) (entity.Blog, error) {
+func (r *BlogRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, blog *entity.Blog) (entity.Blog, error) {
 	var id int
 	sql := `INSERT INTO blog (title, image, content, slug, author, blog_category_id, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`
-	result := tx.QueryRowContext(ctx, sql, user.Title, user.Image, user.Content, user.Slug, user.Author, user.BlogCategoryId, user.UserId)
+	result := tx.QueryRowContext(ctx, sql, blog.Title, blog.Image, blog.Content, blog.Slug, blog.Author, blog.BlogCategoryId, blog.UserId)
 
 	if err := result.Scan(&id); err != nil {
-		return *user, err
+		return *blog, err
 	}
 
-	user.Id = int(id)
-	return *user, nil
+	blog.Id = int(id)
+	return *blog, nil
 }
 
 func (r *BlogRepositoryImpl) Update(ctx context.Context, tx *sql.Tx, blog *entity.Blog) error {

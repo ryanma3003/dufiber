@@ -22,23 +22,36 @@ import (
 var viewsfs embed.FS
 
 func main() {
+	// load env
 	config, err := database.LoadConfig(".")
 	if err != nil {
 		log.Fatal("Cannot load config:", err)
 	}
 
+	// connect to database
 	database.ConnectDB(config)
 
+	// repo init
 	userRepo := repository.NewUserRepository()
+	blogRepo := repository.NewBlogRepository()
+	blogCategoryRepo := repository.NewBlogCategoryRepository()
 
+	// service init
 	userService := service.NewUserService(userRepo, database.DB)
 	authService := service.NewAuthService(userRepo, database.DB)
+	blogService := service.NewBlogService(blogRepo, database.DB)
+	blogCategoryService := service.NewBlogCategoryService(blogCategoryRepo, database.DB)
 
+	// controller init
+	blogController := controllers.NewBlogController(blogService)
+	blogCategoryController := controllers.NewBlogCategoryController(blogCategoryService)
 	userController := controllers.NewUserController(userService)
 	authController := controllers.NewAuthController(authService)
 
+	// engine html init
 	engine := html.NewFileSystem(http.FS(viewsfs), ".html")
 
+	// fiber app init
 	app := fiber.New(fiber.Config{
 		Prefork:       true,
 		CaseSensitive: true,
@@ -58,8 +71,10 @@ func main() {
 		},
 	})
 
+	// static file
 	app.Static("/", "./public")
 
+	// middleware
 	app.Use(cors.New())
 	app.Use(helmet.New())
 	app.Use(logger.New())
@@ -90,5 +105,6 @@ func main() {
 
 	v1.Post("/login", authController.Login)
 
+	// server run
 	log.Fatal(app.Listen(":3000"))
 }
