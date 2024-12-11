@@ -1,7 +1,9 @@
 package main
 
 import (
+	"embed"
 	"log"
+	"net/http"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -10,11 +12,14 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/gofiber/template/html/v2"
 	"github.com/ryanma3003/dufiber/internal/infrastructure/database"
 	"github.com/ryanma3003/dufiber/internal/infrastructure/repository"
 	"github.com/ryanma3003/dufiber/internal/interfaces/http/controllers"
 	"github.com/ryanma3003/dufiber/internal/service"
 )
+
+var viewsfs embed.FS
 
 func main() {
 	config, err := database.LoadConfig(".")
@@ -32,12 +37,15 @@ func main() {
 	userController := controllers.NewUserController(userService)
 	authController := controllers.NewAuthController(authService)
 
+	engine := html.NewFileSystem(http.FS(viewsfs), ".html")
+
 	app := fiber.New(fiber.Config{
 		Prefork:       true,
 		CaseSensitive: true,
 		StrictRouting: true,
 		ServerHeader:  "Fiber",
 		AppName:       "Daulat Umat",
+		Views:         engine,
 		ErrorHandler: func(c *fiber.Ctx, err error) error {
 			code := fiber.StatusInternalServerError
 			if e, ok := err.(*fiber.Error); ok {
@@ -49,6 +57,8 @@ func main() {
 			})
 		},
 	})
+
+	app.Static("/", "./public")
 
 	app.Use(cors.New())
 	app.Use(helmet.New())
@@ -66,7 +76,14 @@ func main() {
 	}))
 	app.Use(recover.New())
 
-	app.Static("/", "./public")
+	// frontend route
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.Render("views/landing/index", fiber.Map{
+			"Title": "Hello, World!",
+		})
+	})
+
+	// backend route
 
 	api := app.Group("/api")
 	v1 := api.Group("/v1")
