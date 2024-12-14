@@ -16,6 +16,15 @@ type HomepageRepository interface {
 	FindTotal(ctx context.Context, tx *sql.Tx) (int, error)
 }
 
+type AboutRepository interface {
+	Save(ctx context.Context, tx *sql.Tx, about *entity.About) (entity.About, error)
+	Update(ctx context.Context, tx *sql.Tx, about *entity.About) error
+	Delete(ctx context.Context, tx *sql.Tx, about *entity.About) error
+	FindByID(ctx context.Context, tx *sql.Tx, id int) (entity.About, error)
+	FindAllWithPagination(ctx context.Context, tx *sql.Tx, limit, offset int) ([]entity.About, error)
+	FindTotal(ctx context.Context, tx *sql.Tx) (int, error)
+}
+
 type FaqRepository interface {
 	Save(ctx context.Context, tx *sql.Tx, faq *entity.Faq) (entity.Faq, error)
 	Update(ctx context.Context, tx *sql.Tx, faq *entity.Faq) error

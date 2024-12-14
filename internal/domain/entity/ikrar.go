@@ -6,6 +6,7 @@ type Ikrar struct {
 	UpdatedAt      string `json:"updated_at"`
 	Nama           string `json:"nama"`
 	Email          string `json:"email"`
+	Telepon        string `json:"telepon"`
 	Tanggal        string `json:"tanggal"`
 	NamaHari       string `json:"nama_hari"`
 	JumlahDonasi   int    `json:"jumlah_donasi"`
