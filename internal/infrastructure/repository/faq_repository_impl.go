@@ -29,7 +29,7 @@ func (r *FaqRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, front *entity.
 }
 
 func (r *FaqRepositoryImpl) Update(ctx context.Context, tx *sql.Tx, front *entity.Faq) error {
-	sql := `UPDATE faq SET pertanyaan=$1, jawaban=$2, updated_at=NOW() WHERE id=$7`
+	sql := `UPDATE faq SET pertanyaan=$1, jawaban=$2, updated_at=NOW() WHERE id=$3`
 	if _, err := tx.ExecContext(ctx, sql, front.Pertanyaan, front.Jawaban, front.Id); err != nil {
 		return err
 	}
