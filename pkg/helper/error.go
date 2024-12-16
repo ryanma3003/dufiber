@@ -46,6 +46,6 @@ func NewErrorUserPasswordIncorrect() AppError {
 func NewErrorRowNotFound() AppError {
 	return AppError{
 		Code:    fiber.StatusNotFound,
-		Message: "User not found",
+		Message: "Data not found",
 	}
 }
