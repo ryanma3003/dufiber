@@ -1,0 +1,242 @@
+@extends('body')
+@section('content')
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb m-0 p-0">
+                        <li class="breadcrumb-item"><a href="{{route('home')}}" class="text-muted">Home</a></li>
+                        <li class="breadcrumb-item text-muted active" aria-current="page">About Page</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                
+                <div class="card-body" style="overflow-x:auto;">
+                    <div class="d-flex align-items-center mb-4">
+                        <h4 class="card-title">Update Content</h4>
+                    </div>
+                    <form action="{{route('about.update', Hashids::encode($about->id))}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="_method" value="PUT">
+                        <!-- Input Groups -->
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label for="latar_title">Latar Belakang Title</label>
+                                    <input type="text" value="{{old('latar_title') ?: $about->latar_title}}" name="latar_title" class="form-control {{$errors->first('latar_title') ? 'is-invalid': ''}}" id="latar_title">
+                                    <span class="invalid-feedback">{{$errors->first('latar_title')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="latar_text">Latar Belakang Text</label>
+                                    <textarea name="latar_text" id="latar_text" class="form-control {{$errors->first('latar_text') ? 'is-invalid': ''}}">{{old('latar_text') ?: $about->latar_text}}</textarea>
+                                    <span class="invalid-feedback">{{$errors->first('latar_text')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="visi_misi_title">Visi Misi Main Title</label>
+                                    <input type="text" value="{{old('visi_misi_title') ?: $about->visi_misi_title}}" name="visi_misi_title" class="form-control {{$errors->first('visi_misi_title') ? 'is-invalid': ''}}" id="visi_misi_title">
+                                    <span class="invalid-feedback">{{$errors->first('visi_misi_title')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="visi_title">Visi Title</label>
+                                    <input type="text" value="{{old('visi_title') ?: $about->visi_title}}" name="visi_title" class="form-control {{$errors->first('visi_title') ? 'is-invalid': ''}}" id="visi_title">
+                                    <span class="invalid-feedback">{{$errors->first('visi_title')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="visi_text">Visi Text</label>
+                                    <textarea name="visi_text" id="visi_text" class="form-control {{$errors->first('visi_text') ? 'is-invalid': ''}}">{{old('visi_text') ?: $about->visi_text}}</textarea>
+                                    <span class="invalid-feedback">{{$errors->first('visi_text')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="misi_title">Misi Title</label>
+                                    <input type="text" value="{{old('misi_title') ?: $about->misi_title}}" name="misi_title" class="form-control {{$errors->first('misi_title') ? 'is-invalid': ''}}" id="misi_title">
+                                    <span class="invalid-feedback">{{$errors->first('misi_title')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="misi_text">Misi Text</label>
+                                    <textarea name="misi_text" id="misi_text" class="form-control {{$errors->first('misi_text') ? 'is-invalid': ''}}">{{old('misi_text') ?: $about->misi_text}}</textarea>
+                                    <span class="invalid-feedback">{{$errors->first('misi_text')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="misi_text2">Misi 2 Text</label>
+                                    <textarea name="misi_text2" id="misi_text2" class="form-control {{$errors->first('misi_text2') ? 'is-invalid': ''}}">{{old('misi_text2') ?: $about->misi_text2}}</textarea>
+                                    <span class="invalid-feedback">{{$errors->first('misi_text2')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="struktur_title">Struktur Title</label>
+                                    <input type="text" value="{{old('struktur_title') ?: $about->struktur_title}}" name="struktur_title" class="form-control {{$errors->first('struktur_title') ? 'is-invalid': ''}}" id="struktur_title">
+                                    <span class="invalid-feedback">{{$errors->first('struktur_title')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="struktur_image">Struktur Image</label>
+                                    @if($about->struktur_image)
+                                    <img src="{{asset('storage/'.$about->struktur_image)}}" width="100px">
+                                    @else
+                                    <p>No Image</p>
+                                    @endif
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="struktur_image" id="struktur_image">
+                                            <label class="custom-file-label" for="struktur_image">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <span class="invalid-feedback">{{$errors->first('struktur_image')}}</span> 
+                                </div>
+                            </div>
+                            <div class="col-6">
+
+                                <div class="form-group mb-3">
+                                    <label for="nilai_title1">Nilai DU 1 Title</label>
+                                    <input type="text" value="{{old('nilai_title1') ?: $about->nilai_title1}}" name="nilai_title1" class="form-control {{$errors->first('nilai_title1') ? 'is-invalid': ''}}" id="nilai_title1">
+                                    <span class="invalid-feedback">{{$errors->first('nilai_title1')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="nilai_text1">Nilai DU 1 Text</label>
+                                    <textarea name="nilai_text1" id="nilai_text1" class="form-control {{$errors->first('nilai_text1') ? 'is-invalid': ''}}">{{old('nilai_text1') ?: $about->nilai_text1}}</textarea>
+                                    <span class="invalid-feedback">{{$errors->first('nilai_text1')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="nilai_image1">Nilai DU 1</label>
+                                    @if($about->nilai_image1)
+                                    <img src="{{asset('storage/'.$about->nilai_image1)}}" width="100px">
+                                    @else
+                                    <p>No Image</p>
+                                    @endif
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="nilai_image1" id="nilai_image1">
+                                            <label class="custom-file-label" for="nilai_image1">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <span class="invalid-feedback">{{$errors->first('nilai_image1')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="nilai_title2">Nilai DU 2 Title</label>
+                                    <input type="text" value="{{old('nilai_title2') ?: $about->nilai_title2}}" name="nilai_title2" class="form-control {{$errors->first('nilai_title2') ? 'is-invalid': ''}}" id="nilai_title2">
+                                    <span class="invalid-feedback">{{$errors->first('nilai_title2')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="nilai_text2">Nilai DU 2 Text</label>
+                                    <textarea name="nilai_text2" id="nilai_text2" class="form-control {{$errors->first('nilai_text2') ? 'is-invalid': ''}}">{{old('nilai_text2') ?: $about->nilai_text2}}</textarea>
+                                    <span class="invalid-feedback">{{$errors->first('nilai_text2')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="nilai_image2">Nilai DU 2</label>
+                                    @if($about->nilai_image2)
+                                    <img src="{{asset('storage/'.$about->nilai_image2)}}" width="100px">
+                                    @else
+                                    <p>No Image</p>
+                                    @endif
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="nilai_image2" id="nilai_image2">
+                                            <label class="custom-file-label" for="nilai_image2">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <span class="invalid-feedback">{{$errors->first('nilai_image2')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="nilai_title3">Nilai DU 3 Title</label>
+                                    <input type="text" value="{{old('nilai_title3') ?: $about->nilai_title3}}" name="nilai_title3" class="form-control {{$errors->first('nilai_title3') ? 'is-invalid': ''}}" id="nilai_title3">
+                                    <span class="invalid-feedback">{{$errors->first('nilai_title3')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="nilai_text3">Nilai DU 3 Text</label>
+                                    <textarea name="nilai_text3" id="nilai_text3" class="form-control {{$errors->first('nilai_text3') ? 'is-invalid': ''}}">{{old('nilai_text3') ?: $about->nilai_text3}}</textarea>
+                                    <span class="invalid-feedback">{{$errors->first('nilai_text3')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="nilai_image3">Nilai DU 3</label>
+                                    @if($about->nilai_image3)
+                                    <img src="{{asset('storage/'.$about->nilai_image3)}}" width="100px">
+                                    @else
+                                    <p>No Image</p>
+                                    @endif
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="nilai_image3" id="nilai_image3">
+                                            <label class="custom-file-label" for="nilai_image3">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <span class="invalid-feedback">{{$errors->first('nilai_image1')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="nilai_title4">Nilai DU 4 Title</label>
+                                    <input type="text" value="{{old('nilai_title4') ?: $about->nilai_title4}}" name="nilai_title4" class="form-control {{$errors->first('nilai_title4') ? 'is-invalid': ''}}" id="nilai_title4">
+                                    <span class="invalid-feedback">{{$errors->first('nilai_title4')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="nilai_text4">Nilai DU 4 Text</label>
+                                    <textarea name="nilai_text4" id="nilai_text4" class="form-control {{$errors->first('nilai_text4') ? 'is-invalid': ''}}">{{old('nilai_text4') ?: $about->nilai_text4}}</textarea>
+                                    <span class="invalid-feedback">{{$errors->first('nilai_text4')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="nilai_image4">Nilai DU 4</label>
+                                    @if($about->nilai_image4)
+                                    <img src="{{asset('storage/'.$about->nilai_image4)}}" width="100px">
+                                    @else
+                                    <p>No Image</p>
+                                    @endif
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Upload</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="nilai_image4" id="nilai_image4">
+                                            <label class="custom-file-label" for="nilai_image4">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <span class="invalid-feedback">{{$errors->first('nilai_image4')}}</span> 
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <button type="submit" class="mb-2 btn btn-sm btn-outline-success mr-1">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

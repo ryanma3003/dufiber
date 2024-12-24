@@ -1,0 +1,494 @@
+<div class="hero-slider-wrapper bg-dark">
+    <div class="hero-slider owl-carousel dots-over" data-nav="true" data-dots="true" data-autoplay="true">
+        <!-- add below style="background-image" -->
+        <div class="owl-slide d-flex align-items-center bg-overlay bg-overlay-400" > 
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 offset-md-1 col-lg-7 offset-lg-0 col-xl-6 col-xxl-5 text-center text-lg-start">
+                        <h2 class="display-1 fs-56 mb-4 text-white animated-caption" data-anim="animate__slideInDown" data-anim-delay="500">{homepage->main_title}</h2>
+                        <p class="lead fs-23 lh-sm mb-7 text-white animated-caption title_message" data-anim="animate__slideInRight" data-anim-delay="1000">{homepage->main_text}</p>
+                        <div class="animated-caption" data-anim="animate__slideInUp" data-anim-delay="1500"><a href="#ziswaf" class="btn btn-lg btn-outline-white rounded-pill scroll">Mulai</a></div>
+                    </div>
+                    <!--/column -->
+                </div>
+                <!--/.row -->
+            </div>
+            <!--/.container -->
+        </div>
+        <!--/.owl-slide -->
+    </div>
+    <!--/.hero-slider -->
+</div>
+
+<section class="wrapper bg-light angled upper-end">
+    <div class="container py-14 py-md-16" id="ziswaf">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+                <h2 class="display-4 text-center">{homepage->kalkulator_title}</h2>
+                <p class="lead text-center mb-10">{homepage->kalkulator_text}</p>
+                <ul class="nav nav-tabs nav-pills">
+                    <li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#tab1-1"><i class="uil uil-laptop-cloud pe-1"></i><span>Zakat</span></a> </li>
+                    <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#tab1-2"><i class="uil uil-shield-exclamation pe-1"></i><span>Infaq</span></a> </li>
+                    <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#tab1-3"><i class="uil uil-calendar-alt pe-1"></i><span>Fidyah</span></a> </li>
+                    <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#tab1-4"><i class="uil uil-trees pe-1"></i><span>Wakaf</span></a> </li>
+                </ul>
+                <!-- /.nav-tabs -->
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tab1-1">
+                        <form class="" method="post" action="/donasi">
+                            <!-- csrf -->
+                            <div class="messages"></div>
+                            <div class="controls">
+                                <div class="row gx-4">
+                                    <div class="col-md-12">
+                                        <div class="form-label-group mb-4">
+                                            <select name="jenisZakat" class="form-control" id="jenisZakat">
+                                                <option value=""></option>
+                                                <!-- foreach($zakats as $zkt) -->
+                                                <option value="{zkt->id}">{zkt->title}</option>
+                                                <!-- endforeach -->
+                                            </select>
+                                            <label for="jenisZakat">Pilih Zakat *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" style="display: none;" id="1">
+                                        <div class="form-label-group mb-4">
+                                            <input id="penghasilan" type="text" name="penghasilan" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="penghasilan">Penghasilan *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" style="display: none;" id="2">
+                                        <div class="form-label-group mb-4">
+                                            <input id="maalEmas" type="text" oninput="handleZakatMaal();" name="maalEmas" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="maalEmas">Nilai emas, perak dan/atau permata *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" style="display: none;" id="3">
+                                        <div class="form-label-group mb-4">
+                                            <input id="maalUang" type="text" oninput="handleZakatMaal();" name="maalUang" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="maalUang">Uang tunai, tabungan, deposito *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" style="display: none;" id="4">
+                                        <div class="form-label-group mb-4">
+                                            <input id="maalAset" type="text" oninput="handleZakatMaal();" name="maalAset" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="maalAset">Kendaraan, rumah, aset lain *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" style="display: none;" id="5">
+                                        <div class="form-label-group mb-4">
+                                            <input id="logamEmas" type="text" oninput="handleZakatLogam();" name="logamEmas" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="logamEmas">Nilai emas *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" style="display: none;" id="6">
+                                        <div class="form-label-group mb-4">
+                                            <input id="logamPerak" type="text" oninput="handleZakatLogam();" name="logamPerak" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="logamPerak">Nilai perak *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" style="display: none;" id="7">
+                                        <div class="form-label-group mb-4">
+                                            <input id="logamLain" type="text" oninput="handleZakatLogam();" name="logamLain" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="logamLain">Nilai logam mulia lainnya *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" style="display: none;" id="8">
+                                        <div class="form-label-group mb-4">
+                                            <input id="niagaAset" type="text" oninput="handleZakatNiaga();" name="niagaAset" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="niagaAset">Nilai Aset *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" style="display: none;" id="9">
+                                        <div class="form-label-group mb-4">
+                                            <input id="niagaLaba" type="text" oninput="handleZakatNiaga();" name="niagaLaba" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="niagaLaba">Nilai laba/dividen *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" style="display: none;" id="10">
+                                        <div class="form-label-group mb-4">
+                                            <input id="utang" type="text" oninput="handleUtang()" name="utang" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="utang">Jumlah utang (optional) *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" style="display: none;" id="11">
+                                        <div class="form-label-group mb-4">
+                                            <select name="nominalZakatFitrah" class="form-control" id="nominalZakatFitrah">
+                                                <!-- foreach($fitrhs as $hargafitrah) -->
+                                                <option value="{hargafitrah->price}">{hargafitrah->price}</option>
+                                                <!-- endforeach -->
+                                            </select>
+                                            <label for="niagaLaba">Nominal Zakat *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" style="display: none;" id="12">
+                                        <div class="form-label-group mb-4">
+                                            <input id="orang" type="text" name="orang" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="orang">Jumlah orang *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-label-group mb-4">
+                                            <input id="nilaiZakat" type="text" name="nilaiZakat" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="nilaiZakat">Nilai Zakat *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 text-center">
+                                        <input type="submit" class="btn btn-success rounded-pill btn-send mb-3" value="Selanjutnya">
+                                        <p class="text-muted"><strong>*</strong> Field ini harus diisi.</p>
+                                    </div>
+                                    <!-- /column -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.controls -->
+                        </form>
+                        <!-- /form -->
+                    </div>
+                    <!--/.tab-pane -->
+                    <div class="tab-pane fade" id="tab1-2">
+                        <form class="" method="post" action="/donasi">
+                            <!-- csrf -->
+                            <div class="messages"></div>
+                            <div class="controls">
+                                <div class="row gx-4">
+                                    <div class="col-md-6">
+                                        <div class="form-label-group mb-4">
+                                            <select name="jenisInfaq" class="form-control" id="jenisInfaq">
+                                                <option value=""></option>
+                                                <!-- foreach($infaqs as $inf) -->
+                                                <option value="{inf->id}">{inf->title}</option>
+                                                <!-- endforeach -->
+                                            </select>
+                                            <label for="jenisInfaq">Pilih Infaq *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-label-group mb-4">
+                                            <input id="nominalInfaq" type="text" name="nominalInfaq" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="nominalInfaq">Nominal *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <input type="submit" class="btn btn-success rounded-pill btn-send mb-3" value="Selanjutnya">
+                                        <p class="text-muted"><strong>*</strong> Field ini harus diisi.</p>
+                                    </div>
+                                    <!-- /column -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.controls -->
+                        </form>
+                        <!-- /form -->
+                    </div>
+                    <!--/.tab-pane -->
+                    <div class="tab-pane fade" id="tab1-3">
+                        <form class="" method="post" action="/donasi">
+                            <!-- csrf -->
+                            <div class="messages"></div>
+                            <div class="controls">
+                                <div class="row gx-4">
+                                    <div class="col-md-12">
+                                        <div class="form-label-group mb-4">
+                                            <select name="jenisFidyah" class="form-control" id="jenisFidyah">
+                                                <option value=""></option>
+                                                <!-- foreach($fidyahs as $fdy) -->
+                                                <option value="{fdy->id}">{fdy->title}</option>
+                                                <!-- endforeach -->
+                                            </select>
+                                            <label for="jenisFidyah">Pilih Fidyah *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-label-group mb-4">
+                                            <input id="hariFidyah" type="text" name="hariFidyah" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="hariFidyah">Jumlah Hari *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-label-group mb-4">
+                                            <input id="nominalFidyah" type="text" name="nominalFidyah" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="nominalFidyah">Nominal *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <input type="submit" class="btn btn-success rounded-pill btn-send mb-3" value="Selanjutnya">
+                                        <p class="text-muted"><strong>*</strong> Field ini harus diisi.</p>
+                                    </div>
+                                    <!-- /column -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.controls -->
+                        </form>
+                        <!-- /form -->
+                    </div>
+                    <!--/.tab-pane -->
+                    <div class="tab-pane fade" id="tab1-4">
+                        <form class="" method="post" action="/donasi">
+                            <!-- csrf -->
+                            <div class="messages"></div>
+                            <div class="controls">
+                                <div class="row gx-4">
+                                    <div class="col-md-12">
+                                        <div class="form-label-group mb-4">
+                                            <select name="jenisWakaf" class="form-control" id="jenisWakaf">
+                                                <option value=""></option>
+                                                <!-- foreach($wakafs as $wkf) -->
+                                                <option value="{wkf->id}">{wkf->title}</option>
+                                                <!-- endforeach -->
+                                            </select>
+                                            <label for="jenisWakaf">Pilih Wakaf *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" style="display: none;" id="hargawakafpohon">
+                                        <div class="form-label-group mb-4">
+                                            <select name="wakafPohon" class="form-control" id="wakafPohon">
+                                                <!-- foreach($wakfs as $wakf) -->
+                                                <option value="{wakf->price}">{wakf->title}</option>
+                                                <!-- endforeach -->
+                                            </select>
+                                            <label for="wakafPohon">Nominal Wakaf *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" style="display: none;" id="jumlahpohon">
+                                        <div class="form-label-group mb-4">
+                                            <input id="pohon" type="text" name="pohon" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="pohon">Jumlah Pohon *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-label-group mb-4">
+                                            <input id="nominalPohon" type="text" name="nominalPohon" class="form-control numberOnly" required data-error="Harus diisi.">
+                                            <label for="nominalPohon">Nilai Wakaf Pohon *</label>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 text-center">
+                                        <input type="submit" class="btn btn-success rounded-pill btn-send mb-3" value="Selanjutnya">
+                                        <p class="text-muted"><strong>*</strong> Field ini harus diisi.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.tab-content -->
+            </div>
+            <!--/column -->
+        </div>
+    </div>
+    <!-- /.container -->
+</section>
+
+<section class="wrapper bg-light wrapper-border">
+    <div class="container py-8 py-md-16">
+        <div class="row align-items-center mb-10">
+            <div class="col-md-8 col-lg-9 col-xl-8 col-xxl-7 pe-xl-20">
+                <h2 class="display-4 mb-0">Berita.</h2>
+            </div>
+            <!--/column -->
+            <div class="col-md-4 col-lg-3 ms-md-auto text-md-end mt-5 mt-md-0">
+                <a href="/berita" class="btn btn-soft-primary rounded-pill mb-0">Lihat Semua</a>
+            </div>
+            <!--/column -->
+        </div>
+        <!--/.row -->
+        <div class="row gx-lg-8 gx-xl-11 gy-10 blog grid-view">
+            <div class="col-lg-8">
+                <article class="post">
+                    <div class="post-slider rounded mb-6">
+                        <div class="basic-slider owl-carousel dots-over" data-margin="5">
+                            <div class="item"><img src="" class="" alt="" /></div>
+                            <!-- <div class="item"><img src="/front_assets/img/photos/b3.jpg" alt="" /></div> -->
+                        </div>
+                        <!-- /.basic-slider -->
+                    </div>
+                    <!-- /.post-slider -->
+                    <div class="post-header mb-5">
+                        <div class="post-category text-line">
+                            <a href="/berita/slug" class="hover" rel="category">{latest->blog_category->title}</a>
+                        </div>
+                        <!-- /.post-category -->
+                        <h2 class="post-title mt-1 mb-4"><a class="link-dark" href="/berita/slug">{latest->title}</a></h2>
+                        <ul class="post-meta mb-0">
+                            <li class="post-date"><i class="uil uil-calendar-alt"></i><span>{latest->created_at->format('d M Y')}</span></li>
+                            <li class="post-author"><a href="/berita/slug"><i class="uil uil-user"></i><span>By {latest->author}</span></a></li>
+                        </ul>
+                        <!-- /.post-meta -->
+                    </div>
+                    <!-- /.post-header -->
+                    <div class="post-content">
+
+                        <!-- content trim 100 char -->
+
+                    </div>
+                    <!-- /.post-content -->
+                </article>
+                <!-- /.post -->
+            </div>
+            <!-- /column -->
+            <div class="col-lg-4">
+                <div class="row gy-10">
+                    <!-- foreach($beritas as $key => $berita) -->
+                    <div class="col-md-6 col-lg-12">
+                        <article class="post">
+                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="/berita/slug"> <img src="" alt="" /></a>
+                                <figcaption>
+                                    <h5 class="from-top mb-0">Read More</h5>
+                                </figcaption>
+                            </figure>
+                            <div class="post-header">
+                                <div class="post-category text-line">
+                                    <a href="/berita/slug" class="hover" rel="category">{berita->blog_category->title}</a>
+                                </div>
+                                <!-- /.post-category -->
+                                <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="/berita/slug">{berita->title}</a></h2>
+                            </div>
+                            <!-- /.post-header -->
+                            <div class="post-footer">
+                                <ul class="post-meta">
+                                    <li class="post-date"><i class="uil uil-calendar-alt"></i><span>{berita->created_at->format('d M Y')}</span></li>
+                                    <!-- <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>4</a></li> -->
+                                </ul>
+                                <!-- /.post-meta -->
+                            </div>
+                            <!-- /.post-footer -->
+                        </article>
+                        <!-- /.post -->
+                    </div>
+                    <!-- endforeach -->
+
+                    <!-- /column -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /column -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+
+<section class="wrapper bg-light wrapper-border">
+    <div class="container py-8 pt-md-16">
+        <div class="row gx-lg-8 gx-xl-12 gy-10 gy-lg-0">
+            <div class="col-lg-4 mt-lg-2">
+                <h2 class="display-4 mb-3">Publikasi</h2>
+                <p class="lead fs-lg mb-6 pe-xxl-5">{homepage->publikasi_text}</p>
+                <a href="/publikasi" class="btn btn-soft-primary rounded-pill">Lihat Semua</a>
+            </div>
+            <!-- /column -->
+            <div class="col-lg-8">
+                <div class="carousel owl-carousel blog grid-view mb-14 mb-md-16" data-margin="30" data-dots="true" data-autoplay="false" data-autoplay-timeout="5000" data-responsive='{"0":{"items": "1"}, "768":{"items": "2"}, "992":{"items": "2"}, "1200":{"items": "2"}}'>
+                    <!-- foreach($publikasis as $key => $publikasi) -->
+                    <div class="item">
+                        <article>
+                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="/publikasi/slug"> <img src="" alt="" /></a>
+                                <figcaption>
+                                    <h5 class="from-top mb-0">Read More</h5>
+                                </figcaption>
+                            </figure>
+                            <div class="post-header">
+                                <div class="post-category text-line">
+                                    <a href="/publikasi/slug" class="hover" rel="category">{publikasi->blog_category->title}</a>
+                                </div>
+                                <!-- /.post-category -->
+                                <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="/publikasi/slug">{publikasi->title}</a></h2>
+                            </div>
+                            <!-- /.post-header -->
+                            <div class="post-footer">
+                                <ul class="post-meta mb-0">
+                                    <li class="post-date"><i class="uil uil-calendar-alt"></i><span>{publikasi->created_at->format('d M Y')}</span></li>
+                                    <!-- <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>4</a></li> -->
+                                </ul>
+                                <!-- /.post-meta -->
+                            </div>
+                            <!-- /.post-footer -->
+                        </article>
+                        <!-- /article -->
+                    </div>
+                    <!-- endforeach -->
+
+                </div>
+                <!-- /.owl-carousel -->
+            </div>
+            <!-- /column -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+<!-- /section -->
+
+<section class="wrapper bg-light wrapper-border">
+    <div class="container py-14 pt-md-16">
+        <div class="row align-items-center mb-10">
+            <div class="col-md-8 col-lg-9 col-xl-8 col-xxl-7 pe-xl-20">
+                <h2 class="display-4 mb-3">Galeri Kegiatan</h2>
+                <p class="lead fs-20 mb-0">Lihat dokumentasi program Daulat Umat.</p>
+            </div>
+            <div class="col-md-4 col-lg-3 ms-md-auto text-md-end mt-5 mt-md-0">
+                <a href="/galeri" class="btn btn-primary rounded-pill mb-0">Lihat Semua</a>
+            </div>
+        </div>
+        <div class="carousel owl-carousel grid-view" data-margin="30" data-dots="true" data-autoplay="false" data-autoplay-timeout="5000" data-responsive='{"0":{"items": "1"}, "768":{"items": "2"}, "992":{"items": "2"}, "1200":{"items": "3"}}'>
+            <!-- foreach($images as $image) -->
+            <div class="item">
+                <figure class="rounded mb-6"><a href=""> <img src="" alt="" /></a></figure>
+                <div class="project-details d-flex justify-content-center flex-column">
+                    <div class="post-header">
+                        <div class="post-category text-line mb-3 text-yellow">{image->galeri_tag->title}</div>
+                        <h2 class="post-title h3">{image->title}</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- endforeach -->
+        </div>
+    </div>
+</section>
+
+<script>
+    // var fidyah = json(fidyhs -> price);
+</script>
+<script type="text/javascript" src="/front_js/kalkulator.js"></script>

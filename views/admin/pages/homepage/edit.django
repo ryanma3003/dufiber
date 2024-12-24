@@ -1,0 +1,95 @@
+@extends('body')
+@section('content')
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb m-0 p-0">
+                        <li class="breadcrumb-item"><a href="{{route('home')}}" class="text-muted">Home</a></li>
+                        <li class="breadcrumb-item text-muted active" aria-current="page">Home Page</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                
+                <div class="card-body" style="overflow-x:auto;">
+                    <div class="d-flex align-items-center mb-4">
+                        <h4 class="card-title">Update Content</h4>
+                    </div>
+                    <form action="{{route('homepage.update', Hashids::encode($homepage->id))}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="_method" value="PUT">
+                        <!-- Input Groups -->
+
+                        <div class="form-group mb-3">
+                            <label for="main_image">Main Image</label>
+                            @if($homepage->main_image)
+                            <img src="{{asset('storage/'.$homepage->main_image)}}" width="100px">
+                            @else
+                            <p>No Image</p>
+                            @endif
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Upload</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="main_image" id="imamain_imagege">
+                                    <label class="custom-file-label" for="main_image">Choose file</label>
+                                </div>
+                            </div>
+                            <span class="invalid-feedback">{{$errors->first('main_image')}}</span> 
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="main_title">Main Title</label>
+                            <input type="text" value="{{old('main_title') ?: $homepage->main_title}}" name="main_title" class="form-control {{$errors->first('main_title') ? 'is-invalid': ''}}" id="main_title">
+                            <span class="invalid-feedback">{{$errors->first('main_title')}}</span> 
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="main_text">Main Text</label>
+                            <textarea name="main_text" class="form-control {{$errors->first('main_text') ? 'is-invalid': ''}}" id="main_text">{{old('main_text') ?: $homepage->main_text}}</textarea>
+                            <span class="invalid-feedback">{{$errors->first('main_text')}}</span> 
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="kalkulator_title">Kalkulator Title</label>
+                            <input type="text" value="{{old('kalkulator_title') ?: $homepage->kalkulator_title}}" name="kalkulator_title" class="form-control {{$errors->first('kalkulator_title') ? 'is-invalid': ''}}" id="kalkulator_title">
+                            <span class="invalid-feedback">{{$errors->first('kalkulator_title')}}</span> 
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="kalkulator_text">Kalkulator Text</label>
+                            <textarea name="kalkulator_text" class="form-control {{$errors->first('kalkulator_text') ? 'is-invalid': ''}}" id="kalkulator_text">{{old('kalkulator_text') ?: $homepage->kalkulator_text}}</textarea>
+                            <span class="invalid-feedback">{{$errors->first('kalkulator_text')}}</span> 
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="pers_text">Pers Text</label>
+                            <textarea name="pers_text" class="form-control {{$errors->first('pers_text') ? 'is-invalid': ''}}" id="pers_text">{{old('pers_text') ?: $homepage->pers_text}}</textarea>
+                            <span class="invalid-feedback">{{$errors->first('pers_text')}}</span> 
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="publikasi_text">Publikasi Text</label>
+                            <textarea name="publikasi_text" class="form-control {{$errors->first('publikasi_text') ? 'is-invalid': ''}}" id="publikasi_text">{{old('publikasi_text') ?: $homepage->publikasi_text}}</textarea>
+                            <span class="invalid-feedback">{{$errors->first('publikasi_text')}}</span> 
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <button type="submit" class="mb-2 btn btn-sm btn-outline-success mr-1">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

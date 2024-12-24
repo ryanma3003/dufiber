@@ -1,0 +1,50 @@
+@extends('body')
+@section('content')
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb m-0 p-0">
+                        <li class="breadcrumb-item"><a href="{{route('home')}}" class="text-muted">Home</a></li>
+                        <li class="breadcrumb-item text-muted active" aria-current="page">Contact Page</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                
+                <div class="card-body" style="overflow-x:auto;">
+                    <div class="d-flex align-items-center mb-4">
+                        <h4 class="card-title">Edit FAQ</h4>
+                    </div>
+                    <form action="{{route('faq.update', Hashids::encode($faq->id))}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="_method" value="PUT">
+                        <!-- Input Groups -->
+                        <div class="form-group mb-3">
+                            <label for="pertanyaan">Pertanyaan</label>
+                            <textarea name="pertanyaan" class="form-control tinymce {{$errors->first('pertanyaan') ? 'is-invalid': ''}}" id="pertanyaan">{{old('pertanyaan') ?: $faq->pertanyaan}}</textarea>
+                            <span class="invalid-feedback">{{$errors->first('pertanyaan')}}</span> 
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="jawaban">Jawaban</label>
+                            <textarea name="jawaban" class="form-control tinymce {{$errors->first('jawaban') ? 'is-invalid': ''}}" id="jawaban">{{old('jawaban') ?: $faq->jawaban}}</textarea>
+                            <span class="invalid-feedback">{{$errors->first('jawaban')}}</span> 
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <button type="submit" class="mb-2 btn btn-sm btn-outline-success mr-1">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

@@ -1,9 +1,8 @@
 package main
 
 import (
-	"embed"
 	"log"
-	"net/http"
+	"strings"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -12,14 +11,21 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/gofiber/template/html/v2"
+	"github.com/gofiber/template/django/v3"
 	"github.com/ryanma3003/dufiber/internal/infrastructure/database"
 	"github.com/ryanma3003/dufiber/internal/infrastructure/repository"
 	"github.com/ryanma3003/dufiber/internal/interfaces/http/controllers"
 	"github.com/ryanma3003/dufiber/internal/service"
 )
 
-var viewsfs embed.FS
+// var viewsfs embed.FS
+
+func Nl2brHtml(value interface{}) string {
+	if str, ok := value.(string); ok {
+		return strings.Replace(str, "\n", "<br />", -1)
+	}
+	return ""
+}
 
 func main() {
 	// load env
@@ -33,23 +39,29 @@ func main() {
 
 	// repo init
 	userRepo := repository.NewUserRepository()
-	blogRepo := repository.NewBlogRepository()
-	blogCategoryRepo := repository.NewBlogCategoryRepository()
+	frontRepo := repository.NewFrontRepository()
+	// blogRepo := repository.NewBlogRepository()
+	// blogCategoryRepo := repository.NewBlogCategoryRepository()
 
 	// service init
-	userService := service.NewUserService(userRepo, database.DB)
+	// userService := service.NewUserService(userRepo, database.DB)
 	authService := service.NewAuthService(userRepo, database.DB)
-	blogService := service.NewBlogService(blogRepo, database.DB)
-	blogCategoryService := service.NewBlogCategoryService(blogCategoryRepo, database.DB)
+	frontService := service.NewFrontService(frontRepo, database.DB)
+	// blogService := service.NewBlogService(blogRepo, database.DB)
+	// blogCategoryService := service.NewBlogCategoryService(blogCategoryRepo, database.DB)
 
 	// controller init
-	blogController := controllers.NewBlogController(blogService)
-	blogCategoryController := controllers.NewBlogCategoryController(blogCategoryService)
-	userController := controllers.NewUserController(userService)
+	// blogController := controllers.NewBlogController(blogService)
+	// blogCategoryController := controllers.NewBlogCategoryController(blogCategoryService)
+	// userController := controllers.NewUserController(userService)
 	authController := controllers.NewAuthController(authService)
+	frontController := controllers.NewFrontController(frontService)
 
 	// engine html init
-	engine := html.NewFileSystem(http.FS(viewsfs), ".html")
+	// engine := html.NewFileSystem(http.FS(viewsfs), ".html")
+	// engine := django.NewPathForwardingFileSystem(http.FS(viewsfs), "/views", ".django")
+	engine := django.New("./views", ".html")
+	engine.AddFunc("nl2br", Nl2brHtml)
 
 	// fiber app init
 	app := fiber.New(fiber.Config{
@@ -72,7 +84,11 @@ func main() {
 	})
 
 	// static file
-	app.Static("/", "./public")
+	app.Static("/", "./public", fiber.Static{
+		Compress:      true,
+		CacheDuration: 10 * time.Second,
+		MaxAge:        3600,
+	})
 
 	// middleware
 	app.Use(cors.New())
@@ -93,10 +109,12 @@ func main() {
 
 	// frontend route
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.Render("views/landing/index", fiber.Map{
+		return c.Render("landing/index", fiber.Map{
 			"Title": "Hello, World!",
-		})
+		}, "landing/template")
 	})
+
+	app.Get("/faq", frontController.FaqPage)
 
 	// backend route
 

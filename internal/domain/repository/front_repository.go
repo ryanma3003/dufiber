@@ -7,6 +7,20 @@ import (
 	"github.com/ryanma3003/dufiber/internal/domain/entity"
 )
 
+type FrontRepository interface {
+	HomepageFindByID(ctx context.Context, tx *sql.Tx, id int) (entity.Homepage, error)
+	AboutFindByID(ctx context.Context, tx *sql.Tx, id int) (entity.About, error)
+	GaleriFindAllWithPagination(ctx context.Context, tx *sql.Tx, limit, offset int) ([]entity.Galeri, error)
+	GaleriFindTotal(ctx context.Context, tx *sql.Tx) (int, error)
+	FaqFindAll(ctx context.Context, tx *sql.Tx) ([]entity.Faq, error)
+	TermFindByID(ctx context.Context, tx *sql.Tx, id int) (entity.Term, error)
+	PrivacyFindByID(ctx context.Context, tx *sql.Tx, id int) (entity.Privacy, error)
+	ContactFindByID(ctx context.Context, tx *sql.Tx, id int) (entity.Contact, error)
+	BlogFindAllWithPagination(ctx context.Context, tx *sql.Tx, limit, offset int) ([]entity.Blog, error)
+	BlogFindTotal(ctx context.Context, tx *sql.Tx) (int, error)
+	BlogFindBySlug(ctx context.Context, tx *sql.Tx, slug string) (entity.Blog, error)
+}
+
 type HomepageRepository interface {
 	Save(ctx context.Context, tx *sql.Tx, homepage *entity.Homepage) (entity.Homepage, error)
 	Update(ctx context.Context, tx *sql.Tx, homepage *entity.Homepage) error

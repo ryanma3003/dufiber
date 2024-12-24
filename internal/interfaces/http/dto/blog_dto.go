@@ -1,21 +1,21 @@
 package dto
 
 type BlogCreate struct {
-	Title          string `json:"title"`
+	Title          string `json:"title" validate:"required"`
 	Slug           string `json:"slug"`
-	Content        string `json:"content"`
-	Image          string `json:"image"`
+	Content        string `json:"content" validate:"required"`
+	Image          string `json:"image" validate:"required"`
 	Author         string `json:"author"`
 	UserId         int    `json:"user_id"`
 	BlogCategoryId int    `json:"blog_category_id"`
 }
 
 type BlogUpdate struct {
-	Id             int    `json:"id"`
-	Title          string `json:"title"`
+	Id             int    `json:"id" validate:"required"`
+	Title          string `json:"title" validate:"required"`
 	Slug           string `json:"slug"`
-	Content        string `json:"content"`
-	Image          string `json:"image"`
+	Content        string `json:"content" validate:"required"`
+	Image          string `json:"image" validate:"required"`
 	Author         string `json:"author"`
 	UserId         int    `json:"user_id"`
 	BlogCategoryId int    `json:"blog_category_id"`
@@ -35,13 +35,13 @@ type BlogResponse struct {
 }
 
 type BlogCategoryCreate struct {
-	Title       string `json:"title"`
+	Title       string `json:"title" validate:"required"`
 	Description string `json:"description"`
 }
 
 type BlogCategoryUpdate struct {
-	Id          int    `json:"id"`
-	Title       string `json:"title"`
+	Id          int    `json:"id" validate:"required"`
+	Title       string `json:"title" validate:"required"`
 	Description string `json:"description"`
 }
 

@@ -1,0 +1,170 @@
+<section class="wrapper bg-green">
+    <div class="container pt-8 pb-8 pt-md-8 pb-md-8 text-center">
+    </div>
+    <!-- /.container -->
+</section>
+
+<section class="wrapper bg-light wrapper-border">
+    <div class="container py-14 py-md-16">
+        <h2 class="display-4 mb-5 text-center">Donasi</h2>
+        <div class="row gx-md-8 gx-xl-12 gy-10 align-items-center">
+            <div class="col-md-8 col-lg-6 offset-lg-0 col-xl-5 offset-xl-1 position-relative">
+                <img src="front_assets/img/icons/telemarketer.svg" class="svg-inject icon-svg icon-svg-md mb-4" alt="" />
+                <div class="shape bg-dot green rellax w-17 h-21" data-rellax-speed="1" style="top: -2rem; left: -1.4rem;"></div>
+                <div class="card mb-5">
+                    <div class="card-header bg-green">
+                        <h4 class="text-white">Pilihan Donasi</h4>
+                    </div>
+                    <div class="card-body bg-soft-green">
+                        <form method="post" action=">
+                        @csrf
+                        <div class="form-group mb-4">
+                            <label for="jenisDonasi">Jenis Donasi</label>
+                            <input type="hidden" name="jenisDonasi" value="">
+                            <input type="hidden" name="khususDonasi" value="">
+                            <input type="text" class="form-control" value="" name="" id="jenisDonasi" readonly>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="nominal">Jumlah (Rp.)</label>
+                            <input type="text" class="form-control numberOnly" value="" name="nominal" id="nominal" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header bg-green">
+                        <h4 class="text-white">Data Donatur, Muzakki, dan Wakif</h4>
+                    </div>
+                    <div class="card-body bg-soft-green">
+                        <div class="form-group mb-4">
+                            <label for="nama">Nama Lengkap *</label>
+                            <input type="text" class="form-control" value="" name="nama" id="nama">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="email">Email *</label>
+                            <input type="email" class="form-control" value="" name="email" id="email">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="phone">Telepon *</label>
+                            <input type="text" class="form-control numberOnly" value="" name="phone" id="phone">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/column -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header bg-green">
+                        <h4 class="text-white">Metode Pembayaran</h4>
+                    </div>
+                    <div class="card-body bg-soft-green">
+
+                        <section id="tabs" class="wrapper pb-2">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <ul class="nav nav-tabs nav-pills">
+                                        <li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#online"><i class="uil uil-shield-check pe-1"></i><span>Online Payment</span></a> </li>
+                                        <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#transfer"><i class="uil uil-shop pe-1"></i><span>Transfer Bank</span></a> </li>
+                                    </ul>
+                                    <!-- /.nav-tabs -->
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="online">
+                                            <ul class="icon-list bullet-bg bullet-soft-primary">
+                                            <li>
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="OV" name="methodpayment" value="OV" checked>
+                                                    <label for="OV" class="form-check-label"><img src="front_assets/img/payment/ovo.png" width="50px"></label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="SP" name="methodpayment" value="SP">
+                                                    <label for="SP" class="form-check-label"><img src="front_assets/img/payment/shopeepay.png" width="100px"></label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="LA" name="methodpayment" value="LA">
+                                                    <label for="LA" class="form-check-label"><img src="front_assets/img/payment/linkaja.png" height="50px"></label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="SA" name="methodpayment" value="SA">
+                                                    <label for="SA" class="form-check-label"><img src="front_assets/img/payment/shopeepayqris.png" width="100px"></label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="FT" name="methodpayment" value="FT">
+                                                    <label for="FT" class="form-check-label"><img src="front_assets/img/payment/retail.png" width="100px"></label>
+                                                </div>
+                                            </li>
+                                            </ul>
+                                        </div>
+                                        <!--/.tab-pane -->
+                                        <div class="tab-pane fade" id="transfer">
+                                            <ul class="icon-list bullet-bg bullet-soft-primary">
+                                            <li>
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="A1" name="methodpayment" value="A1">
+                                                    <label for="A1" class="form-check-label"><img src="front_assets/img/payment/atmbersama.png" width="75px"></label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="I1" name="methodpayment" value="I1">
+                                                    <label for="I1" class="form-check-label"><img src="front_assets/img/payment/bni.jpg" width="50px"></label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="M2" name="methodpayment" value="M2">
+                                                    <label for="M2" class="form-check-label"><img src="front_assets/img/payment/mandiri.png" width="90px"></label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="B1" name="methodpayment" value="B1">
+                                                    <label for="B1" class="form-check-label"><img src="front_assets/img/payment/cimb.png" width="100px"></label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="BT" name="methodpayment" value="BT">
+                                                    <label for="BT" class="form-check-label"><img src="front_assets/img/payment/permata.png" width="100px"></label>
+                                                </div>
+                                            </li>
+                                            </ul>
+                                        </div>
+                                        <!--/.tab-pane -->
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="agreement" class="form-check-input" id="agreement" value="agree">
+                                        <label class="form-check-label" for="agreement">Saya setuju</label>
+                                        <p class="mt-3">
+                                            Dengan meng-klik tombol persetujuan di atas saya menyatakan:<br><br>
+                                            a). memberikan izin kepada Daulat Umat untuk menyimpan data untuk dipergunakan hanya sebagai keperluan komunikasi antara Daulat Umat dengan saya selaku donatur/muzakki.
+                                            <br>
+                                            b). Menyetujui menanggung biaya penanganan donasi/zakat yang dibebankan pihak ketiga kapada Daulat Umat.
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-gradient border-0 rounded-pill" type="submit" id="submit" disabled="disabled" value="Donasi Sekarang">
+                                    </div>
+                                    <!-- /.tab-content -->
+                                </div>
+                                <!--/column -->
+                            </div>
+                            <!--/.row -->
+                        </section>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--/column -->
+        </div>
+        <!--/.row -->
+    </div>
+    <!-- /.container -->
+</section>
+<script type="text/javascript" src="/front_js/disable.js"></script>

@@ -1,0 +1,73 @@
+@extends('body')
+@section('content')
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb m-0 p-0">
+                        <li class="breadcrumb-item"><a href="{{route('home')}}" class="text-muted">Home</a></li>
+                        <li class="breadcrumb-item text-muted active" aria-current="page">Donasi</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                
+                <div class="card-body" style="overflow-x:auto;">
+                    <div class="d-flex align-items-center mb-4">
+                        <h4 class="card-title">Edit Donasi</h4>
+                    </div>
+                    <form action="{{route('donationlist.update', Hashids::encode($donation->id)) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="_method" value="PUT">
+                        <!-- Input Groups -->
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="donation_category">Kategori</label>
+                                    <select name="donation_category" id="donation_category" class="form-control custom-select {{$errors->first('donation_category') ? 'is-invalid': ''}}">
+                                        <option value="">Pick Tag</option>
+                                        @foreach($categories as $cat)
+                                        <option value="{{$cat->id}}" {{$donation->donation_category_id == $cat->id ? 'selected' : ''}}>{{$cat->title}}</option>
+                                        @endforeach
+                                    </select>
+                                    <span class="invalid-feedback">{{$errors->first('donation_category')}}</span> 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="title">Nama</label>
+                            <input type="text" value="{{old('title') ?: $donation->title}}" name="title" class="form-control {{$errors->first('title') ? 'is-invalid': ''}}" id="title">
+                            <span class="invalid-feedback">{{$errors->first('title')}}</span> 
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="code">Kode</label>
+                            <input type="text" value="{{old('code') ?: $donation->code}}" name="code" class="form-control numberOnly {{$errors->first('code') ? 'is-invalid': ''}}" id="code">
+                            <span class="invalid-feedback">{{$errors->first('code')}}</span> 
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="description">Deskripsi (optional)</label>
+                            <textarea name="description" id="description" class="form-control {{$errors->first('description') ? 'is-invalid': ''}}">{{old('description') ?: $donation->description}}</textarea>
+                            <span class="invalid-feedback">{{$errors->first('description')}}</span> 
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <button type="submit" class="mb-2 btn btn-sm btn-outline-success mr-1">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
