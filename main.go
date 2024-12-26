@@ -11,7 +11,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/gofiber/template/django/v3"
+	"github.com/gofiber/template/html/v2"
 	"github.com/ryanma3003/dufiber/internal/infrastructure/database"
 	"github.com/ryanma3003/dufiber/internal/infrastructure/repository"
 	"github.com/ryanma3003/dufiber/internal/interfaces/http/controllers"
@@ -25,6 +25,10 @@ func Nl2brHtml(value interface{}) string {
 		return strings.Replace(str, "\n", "<br />", -1)
 	}
 	return ""
+}
+
+func inc(i int) int {
+	return i + 1
 }
 
 func main() {
@@ -60,8 +64,9 @@ func main() {
 	// engine html init
 	// engine := html.NewFileSystem(http.FS(viewsfs), ".html")
 	// engine := django.NewPathForwardingFileSystem(http.FS(viewsfs), "/views", ".django")
-	engine := django.New("./views", ".html")
+	engine := html.New("./views", ".html")
 	engine.AddFunc("nl2br", Nl2brHtml)
+	engine.AddFunc("inc", inc)
 
 	// fiber app init
 	app := fiber.New(fiber.Config{
@@ -108,12 +113,8 @@ func main() {
 	app.Use(recover.New())
 
 	// frontend route
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.Render("landing/index", fiber.Map{
-			"Title": "Hello, World!",
-		}, "landing/template")
-	})
-
+	app.Get("/", frontController.HomepagePage)
+	app.Get("/hubungi-kami", frontController.ContactPage)
 	app.Get("/faq", frontController.FaqPage)
 
 	// backend route

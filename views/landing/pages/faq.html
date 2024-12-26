@@ -11,23 +11,24 @@
         <div class="row">
             <div class="col-lg-12 mb-0">
                 <div id="accordion-1" class="accordion-wrapper">
-                    {{ range .Faqs }}
+                    {{ range $index, $val := .Faqs}}
                     <div class="card">
-                        <div class="card-header" id="accordion-heading-1-">
-                            <button class="collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-collapse-1-" aria-expanded="false" aria-controls="accordion-collapse-1-">
-                                {{.Pertanyaan}}
+                        <div class="card-header" id="accordion-heading-1-{{inc $index}}">
+                            <button class="collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-collapse-1-{{inc $index}}" aria-expanded="false" aria-controls="accordion-collapse-1-{{inc $index}}">
+                               {{$val.Pertanyaan}} 
                             </button>
                         </div>
                         <!-- /.card-header -->
-                        <div id="accordion-collapse-1-" class="collapse" aria-labelledby="accordion-heading-1-" data-bs-target="#accordion-1">
+                        <div id="accordion-collapse-1-{{inc $index}}" class="collapse" aria-labelledby="accordion-heading-1-{{inc $index}}" data-bs-target="#accordion-1">
                             <div class="card-body">
-                                <p>{{.Jawaban}}</p>
+                                <p>{{$val.Jawaban}}</p>
                             </div>
                             <!-- /.card-body -->
                         </div>
                         <!-- /.collapse -->
                     </div>
                     {{end}}
+                    <!-- /.card -->
                 </div>
                 <!-- /.accordion-wrapper -->
             </div>

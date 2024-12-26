@@ -5,8 +5,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 offset-md-1 col-lg-7 offset-lg-0 col-xl-6 col-xxl-5 text-center text-lg-start">
-                        <h2 class="display-1 fs-56 mb-4 text-white animated-caption" data-anim="animate__slideInDown" data-anim-delay="500">{homepage->main_title}</h2>
-                        <p class="lead fs-23 lh-sm mb-7 text-white animated-caption title_message" data-anim="animate__slideInRight" data-anim-delay="1000">{homepage->main_text}</p>
+                        <h2 class="display-1 fs-56 mb-4 text-white animated-caption" data-anim="animate__slideInDown" data-anim-delay="500">{{.Homepage.MainTitle}}</h2>
+                        <p class="lead fs-23 lh-sm mb-7 text-white animated-caption title_message" data-anim="animate__slideInRight" data-anim-delay="1000">{{.Homepage.MainText}}</p>
                         <div class="animated-caption" data-anim="animate__slideInUp" data-anim-delay="1500"><a href="#ziswaf" class="btn btn-lg btn-outline-white rounded-pill scroll">Mulai</a></div>
                     </div>
                     <!--/column -->
@@ -24,8 +24,8 @@
     <div class="container py-14 py-md-16" id="ziswaf">
         <div class="row">
             <div class="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
-                <h2 class="display-4 text-center">{homepage->kalkulator_title}</h2>
-                <p class="lead text-center mb-10">{homepage->kalkulator_text}</p>
+                <h2 class="display-4 text-center">{{.Homepage.KalkulatorTitle}}</h2>
+                <p class="lead text-center mb-10">{{.Homepage.KalkulatorText}}</p>
                 <ul class="nav nav-tabs nav-pills">
                     <li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#tab1-1"><i class="uil uil-laptop-cloud pe-1"></i><span>Zakat</span></a> </li>
                     <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#tab1-2"><i class="uil uil-shield-exclamation pe-1"></i><span>Infaq</span></a> </li>
@@ -415,7 +415,7 @@
         <div class="row gx-lg-8 gx-xl-12 gy-10 gy-lg-0">
             <div class="col-lg-4 mt-lg-2">
                 <h2 class="display-4 mb-3">Publikasi</h2>
-                <p class="lead fs-lg mb-6 pe-xxl-5">{homepage->publikasi_text}</p>
+                <p class="lead fs-lg mb-6 pe-xxl-5">{{.Homepage.PublikasiText}}</p>
                 <a href="/publikasi" class="btn btn-soft-primary rounded-pill">Lihat Semua</a>
             </div>
             <!-- /column -->

@@ -17,13 +17,13 @@
 
 <body>
     <div class="content-wrapper">
-        {% include "landing/partials/header.html" %}
+        {{template "landing/partials/header" .}}
 
         {{ embed }}
     </div>
     <!-- /.content-wrapper -->
 
-    {% include "landing/partials/footer.html" %}
+    {{ template "landing/partials/footer" .}}
     
     <script>
         (function($) {

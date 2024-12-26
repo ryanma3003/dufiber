@@ -360,10 +360,10 @@ func ToContactResponses(datas []entity.Contact) []dto.ContactResponse {
 func ToFaqResponse(data entity.Faq) dto.FaqResponse {
 	return dto.FaqResponse{
 		Id:         data.Id,
-		Pertanyaan: data.Pertanyaan,
-		Jawaban:    data.Jawaban,
 		CreatedAt:  data.CreatedAt,
 		UpdatedAt:  data.UpdatedAt,
+		Pertanyaan: data.Pertanyaan,
+		Jawaban:    data.Jawaban,
 	}
 }
 
