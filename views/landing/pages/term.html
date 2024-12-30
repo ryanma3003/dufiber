@@ -4,7 +4,7 @@
             <div class="col-md-10 col-xl-8 mx-auto">
                 <div class="post-header">
                     <!-- /.post-category -->
-                    <h1 class="display-1 mb-4 pt-10">{term->title}</h1>
+                    <h1 class="display-1 mb-4 pt-10">{{.Term.Title}}</h1>
                 </div>
                 <!-- /.post-header -->
             </div>
@@ -25,7 +25,7 @@
                             <div class="classic-view">
                                 <article class="post">
                                     <div class="post-content mb-5">
-                                        {term->text }
+                                        {{unescape .Term.Text}}
                                     </div>
                                     <!-- /.post-content -->
                                 </article>

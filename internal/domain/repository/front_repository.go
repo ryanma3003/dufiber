@@ -16,6 +16,7 @@ type FrontRepository interface {
 	TermFindByID(ctx context.Context, tx *sql.Tx, id int) (entity.Term, error)
 	PrivacyFindByID(ctx context.Context, tx *sql.Tx, id int) (entity.Privacy, error)
 	ContactFindByID(ctx context.Context, tx *sql.Tx, id int) (entity.Contact, error)
+	LatestBlog(ctx context.Context, tx *sql.Tx) (entity.Blog, error)
 	BlogFindAllWithPagination(ctx context.Context, tx *sql.Tx, limit, offset int) ([]entity.Blog, error)
 	BlogFindTotal(ctx context.Context, tx *sql.Tx) (int, error)
 	BlogFindBySlug(ctx context.Context, tx *sql.Tx, slug string) (entity.Blog, error)

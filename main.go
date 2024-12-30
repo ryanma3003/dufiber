@@ -1,6 +1,7 @@
 package main
 
 import (
+	"html/template"
 	"log"
 	"strings"
 	"time"
@@ -29,6 +30,10 @@ func Nl2brHtml(value interface{}) string {
 
 func inc(i int) int {
 	return i + 1
+}
+
+func unescape(s string) template.HTML {
+	return template.HTML(s)
 }
 
 func main() {
@@ -67,6 +72,7 @@ func main() {
 	engine := html.New("./views", ".html")
 	engine.AddFunc("nl2br", Nl2brHtml)
 	engine.AddFunc("inc", inc)
+	engine.AddFunc("unescape", unescape)
 
 	// fiber app init
 	app := fiber.New(fiber.Config{
@@ -114,8 +120,14 @@ func main() {
 
 	// frontend route
 	app.Get("/", frontController.HomepagePage)
+	app.Get("/tentang-kami", frontController.AboutPage)
+	app.Get("/galeri", frontController.GaleriPage)
+	app.Get("/artikel", frontController.BlogPage)
+	app.Get("/artikel/:slug", frontController.BlogShowPage)
 	app.Get("/hubungi-kami", frontController.ContactPage)
 	app.Get("/faq", frontController.FaqPage)
+	app.Get("/syarat-ketentuan", frontController.TermPage)
+	app.Get("/kebijakan-privasi", frontController.PrivacyPage)
 
 	// backend route
 

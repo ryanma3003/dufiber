@@ -16,8 +16,8 @@ func NewGaleriRepository() repository.GaleriRepository {
 
 func (r *GaleriRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, galeri *entity.Galeri) (entity.Galeri, error) {
 	var id int
-	sql := `INSERT INTO galeris (title, slug, image, galeri_tag_id) VALUES ($1, $2, $3, $4) RETURNING id`
-	result := tx.QueryRowContext(ctx, sql, galeri.Title, galeri.Slug, galeri.Image, galeri.GaleriTagId)
+	sql := `INSERT INTO galeris (title, slug, image, galery_tag_id) VALUES ($1, $2, $3, $4) RETURNING id`
+	result := tx.QueryRowContext(ctx, sql, galeri.Title, galeri.Slug, galeri.Image, galeri.GaleryTagId)
 
 	if err := result.Scan(&id); err != nil {
 		return *galeri, err
@@ -28,8 +28,8 @@ func (r *GaleriRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, galeri *ent
 }
 
 func (r *GaleriRepositoryImpl) Update(ctx context.Context, tx *sql.Tx, galeri *entity.Galeri) error {
-	sql := `UPDATE galeris SET title=$1, slug=$2, image=$3, galeri_tag_id=$4, updated_at=NOW() WHERE id=$5`
-	if _, err := tx.ExecContext(ctx, sql, galeri.Title, galeri.Slug, galeri.Image, galeri.GaleriTagId, galeri.Id); err != nil {
+	sql := `UPDATE galeris SET title=$1, slug=$2, image=$3, galery_tag_id=$4, updated_at=NOW() WHERE id=$5`
+	if _, err := tx.ExecContext(ctx, sql, galeri.Title, galeri.Slug, galeri.Image, galeri.GaleryTagId, galeri.Id); err != nil {
 		return err
 	}
 	return nil
@@ -45,8 +45,8 @@ func (r *GaleriRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, galeri *e
 
 func (r *GaleriRepositoryImpl) FindByID(ctx context.Context, tx *sql.Tx, id int) (entity.Galeri, error) {
 	var galeri entity.Galeri
-	sql := `SELECT id, title, slug, image, galeri_tag_id, created_at, updated_at FROM galeris WHERE id=$1`
-	if err := tx.QueryRowContext(ctx, sql, id).Scan(&galeri.Id, &galeri.Title, &galeri.Slug, galeri.Image, galeri.GaleriTagId, &galeri.CreatedAt, &galeri.UpdatedAt); err != nil {
+	sql := `SELECT id, title, slug, image, galery_tag_id, created_at, updated_at FROM galeris WHERE id=$1`
+	if err := tx.QueryRowContext(ctx, sql, id).Scan(&galeri.Id, &galeri.Title, &galeri.Slug, galeri.Image, galeri.GaleryTagId, &galeri.CreatedAt, &galeri.UpdatedAt); err != nil {
 		return galeri, err
 	}
 	return galeri, nil
@@ -54,7 +54,7 @@ func (r *GaleriRepositoryImpl) FindByID(ctx context.Context, tx *sql.Tx, id int)
 
 func (r *GaleriRepositoryImpl) FindAllWithPagination(ctx context.Context, tx *sql.Tx, limit, offset int) ([]entity.Galeri, error) {
 	var galeris []entity.Galeri
-	sql := `SELECT id, title, slug, image, galeri_tag_id, created_at, updated_at FROM galeris ORDER BY created_at DESC LIMIT $1 OFFSET $2`
+	sql := `SELECT id, title, slug, image, galery_tag_id, created_at, updated_at FROM galeris ORDER BY created_at DESC LIMIT $1 OFFSET $2`
 	rows, err := tx.QueryContext(ctx, sql, limit, offset)
 	if err != nil {
 		return galeris, err
@@ -63,7 +63,7 @@ func (r *GaleriRepositoryImpl) FindAllWithPagination(ctx context.Context, tx *sq
 
 	for rows.Next() {
 		var galeri entity.Galeri
-		if err := rows.Scan(&galeri.Id, &galeri.Title, &galeri.Slug, galeri.Image, galeri.GaleriTagId, &galeri.CreatedAt, &galeri.UpdatedAt); err != nil {
+		if err := rows.Scan(&galeri.Id, &galeri.Title, &galeri.Slug, galeri.Image, galeri.GaleryTagId, &galeri.CreatedAt, &galeri.UpdatedAt); err != nil {
 			return galeris, err
 		}
 		galeris = append(galeris, galeri)

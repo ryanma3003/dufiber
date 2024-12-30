@@ -228,12 +228,13 @@ func ToGaleriTagResponses(datas []entity.GaleriTag) []dto.GaleriTagResponse {
 // Galeri
 func ToGaleriResponse(data entity.Galeri) dto.GaleriResponse {
 	return dto.GaleriResponse{
-		Id:        data.Id,
-		Title:     data.Title,
-		Slug:      data.Slug,
-		Image:     data.Image,
-		CreatedAt: data.CreatedAt,
-		UpdatedAt: data.UpdatedAt,
+		Id:          data.Id,
+		Title:       data.Title,
+		Slug:        data.Slug,
+		Image:       data.Image,
+		GaleryTagId: data.GaleryTagId,
+		CreatedAt:   data.CreatedAt,
+		UpdatedAt:   data.UpdatedAt,
 	}
 }
 

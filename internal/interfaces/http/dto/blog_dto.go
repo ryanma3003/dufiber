@@ -35,20 +35,20 @@ type BlogResponse struct {
 }
 
 type BlogCategoryCreate struct {
-	Title       string `json:"title" validate:"required"`
-	Description string `json:"description"`
+	Title       string  `json:"title" validate:"required"`
+	Description *string `json:"description"`
 }
 
 type BlogCategoryUpdate struct {
-	Id          int    `json:"id" validate:"required"`
-	Title       string `json:"title" validate:"required"`
-	Description string `json:"description"`
+	Id          int     `json:"id" validate:"required"`
+	Title       string  `json:"title" validate:"required"`
+	Description *string `json:"description"`
 }
 
 type BlogCategoryResponse struct {
-	Id          int    `json:"id"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	CreatedAt   string `json:"created_at"`
-	UpdatedAt   string `json:"updated_at"`
+	Id          int     `json:"id"`
+	Title       string  `json:"title"`
+	Description *string `json:"description"`
+	CreatedAt   string  `json:"created_at"`
+	UpdatedAt   string  `json:"updated_at"`
 }

@@ -87,7 +87,7 @@ func (s *GaleriServiceImpl) Create(ctx context.Context, req *dto.GaleriCreate) (
 		Title:       req.Title,
 		Slug:        req.Slug,
 		Image:       req.Image,
-		GaleriTagId: req.GaleriTagId,
+		GaleryTagId: req.GaleryTagId,
 	}
 
 	// save datacategory
@@ -121,7 +121,7 @@ func (s *GaleriServiceImpl) Update(ctx context.Context, req *dto.GaleriUpdate) e
 			Title:       req.Title,
 			Slug:        req.Slug,
 			Image:       req.Image,
-			GaleriTagId: req.GaleriTagId,
+			GaleryTagId: req.GaleryTagId,
 		}
 
 		// update data category donation

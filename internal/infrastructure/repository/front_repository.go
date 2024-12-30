@@ -34,7 +34,7 @@ func (r *FrontRepositoryImpl) AboutFindByID(ctx context.Context, tx *sql.Tx, id 
 
 func (r *FrontRepositoryImpl) GaleriFindAllWithPagination(ctx context.Context, tx *sql.Tx, limit, offset int) ([]entity.Galeri, error) {
 	var galeris []entity.Galeri
-	sql := `SELECT id, title, slug, image, galeri_tag_id, created_at, updated_at FROM galeris ORDER BY created_at DESC LIMIT ? OFFSET ?`
+	sql := `SELECT id, created_at, updated_at, title, slug, image, galery_tag_id FROM galeris ORDER BY created_at DESC LIMIT ? OFFSET ?`
 	rows, err := tx.QueryContext(ctx, sql, limit, offset)
 	if err != nil {
 		return galeris, err
@@ -43,7 +43,7 @@ func (r *FrontRepositoryImpl) GaleriFindAllWithPagination(ctx context.Context, t
 
 	for rows.Next() {
 		var galeri entity.Galeri
-		if err := rows.Scan(&galeri.Id, &galeri.Title, &galeri.Slug, galeri.Image, galeri.GaleriTagId, &galeri.CreatedAt, &galeri.UpdatedAt); err != nil {
+		if err := rows.Scan(&galeri.Id, &galeri.CreatedAt, &galeri.UpdatedAt, &galeri.Title, &galeri.Slug, galeri.Image, galeri.GaleryTagId); err != nil {
 			return galeris, err
 		}
 		galeris = append(galeris, galeri)
@@ -108,9 +108,18 @@ func (r *FrontRepositoryImpl) ContactFindByID(ctx context.Context, tx *sql.Tx, i
 	return front, nil
 }
 
+func (r *FrontRepositoryImpl) LatestBlog(ctx context.Context, tx *sql.Tx) (entity.Blog, error) {
+	var blog entity.Blog
+	sql := `SELECT id, created_at, updated_at, title, slug, content, image, author, users_id, blog_category_id FROM blog ORDER BY ID DESC LIMIT 1`
+	if err := tx.QueryRowContext(ctx, sql).Scan(&blog.Id, &blog.CreatedAt, &blog.UpdatedAt, &blog.Title, &blog.Slug, &blog.Content, &blog.Image, &blog.Author, &blog.UserId, &blog.BlogCategoryId); err != nil {
+		return blog, err
+	}
+	return blog, nil
+}
+
 func (r *FrontRepositoryImpl) BlogFindBySlug(ctx context.Context, tx *sql.Tx, slug string) (entity.Blog, error) {
 	var blog entity.Blog
-	sql := `SELECT id, created_at, updated_at, title, slug, content, image, author, user_id, blog_category_id FROM blog WHERE slug=?`
+	sql := `SELECT id, created_at, updated_at, title, slug, content, image, author, users_id, blog_category_id FROM blog WHERE slug=?`
 	if err := tx.QueryRowContext(ctx, sql, slug).Scan(&blog.Id, &blog.CreatedAt, &blog.UpdatedAt, &blog.Title, &blog.Slug, &blog.Content, &blog.Image, &blog.Author, &blog.UserId, &blog.BlogCategoryId); err != nil {
 		return blog, err
 	}
@@ -119,7 +128,11 @@ func (r *FrontRepositoryImpl) BlogFindBySlug(ctx context.Context, tx *sql.Tx, sl
 
 func (r *FrontRepositoryImpl) BlogFindAllWithPagination(ctx context.Context, tx *sql.Tx, limit, offset int) ([]entity.Blog, error) {
 	var blogs []entity.Blog
-	sql := `SELECT id, title, image, content, slug, author, blog_category_id, user_id, created_at, updated_at FROM blog ORDER BY created_at DESC LIMIT ? OFFSET $2`
+	sql := `SELECT id, created_at, updated_at, title, slug, content, image, author, blog_category_id, users_id
+        FROM blog
+        WHERE id != (SELECT id FROM blog ORDER BY created_at DESC LIMIT 1)
+        ORDER BY created_at DESC
+        LIMIT ? OFFSET ?`
 	rows, err := tx.QueryContext(ctx, sql, limit, offset)
 	if err != nil {
 		return blogs, err
@@ -128,7 +141,7 @@ func (r *FrontRepositoryImpl) BlogFindAllWithPagination(ctx context.Context, tx 
 
 	for rows.Next() {
 		var blog entity.Blog
-		if err := rows.Scan(&blog.Id, &blog.Title, &blog.Content, &blog.Image, &blog.Slug, &blog.BlogCategoryId, &blog.Author, &blog.UserId, &blog.CreatedAt, &blog.UpdatedAt); err != nil {
+		if err := rows.Scan(&blog.Id, &blog.CreatedAt, &blog.UpdatedAt, &blog.Title, &blog.Slug, &blog.Content, &blog.Image, &blog.Author, &blog.UserId, &blog.BlogCategoryId); err != nil {
 			return blogs, err
 		}
 		blogs = append(blogs, blog)

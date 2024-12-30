@@ -5,7 +5,7 @@
             <div class="col-md-10 col-xl-8 mx-auto">
                 <div class="post-header">
                     <!-- /.post-category -->
-                    <h1 class="display-1 mb-4 pt-10">{privacy->title}</h1>
+                    <h1 class="display-1 mb-4 pt-10">{{.Privacy.Title}}</h1>
                 </div>
                 <!-- /.post-header -->
             </div>
@@ -26,7 +26,7 @@
                             <div class="classic-view">
                                 <article class="post">
                                     <div class="post-content mb-5">
-                                        { privacy->text }
+                                        {{unescape .Privacy.Text}}
                                     </div>
                                     <!-- /.post-content -->
                                 </article>

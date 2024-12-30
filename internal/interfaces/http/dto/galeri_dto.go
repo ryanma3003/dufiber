@@ -25,7 +25,7 @@ type GaleriCreate struct {
 	Title       string `json:"title"`
 	Slug        string `json:"slug"`
 	Image       string `json:"image"`
-	GaleriTagId int    `json:"galeri_tag_id"`
+	GaleryTagId int    `json:"galeri_tag_id"`
 }
 
 type GaleriUpdate struct {
@@ -33,7 +33,7 @@ type GaleriUpdate struct {
 	Title       string `json:"title"`
 	Slug        string `json:"slug"`
 	Image       string `json:"image"`
-	GaleriTagId int    `json:"galeri_tag_id"`
+	GaleryTagId int    `json:"galeri_tag_id"`
 }
 
 type GaleriResponse struct {
@@ -43,5 +43,5 @@ type GaleriResponse struct {
 	Title       string `json:"title"`
 	Slug        string `json:"slug"`
 	Image       string `json:"image"`
-	GaleriTagId int    `json:"galeri_tag_id"`
+	GaleryTagId int    `json:"galeri_tag_id"`
 }

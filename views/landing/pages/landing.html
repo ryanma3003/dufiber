@@ -347,13 +347,13 @@
                     <!-- /.post-slider -->
                     <div class="post-header mb-5">
                         <div class="post-category text-line">
-                            <a href="/berita/slug" class="hover" rel="category">{latest->blog_category->title}</a>
+                            <a href="/berita/{{.Lblog.Slug}}" class="hover" rel="category">{{.Lblog.BlogCategoryId}}</a>
                         </div>
                         <!-- /.post-category -->
-                        <h2 class="post-title mt-1 mb-4"><a class="link-dark" href="/berita/slug">{latest->title}</a></h2>
+                        <h2 class="post-title mt-1 mb-4"><a class="link-dark" href="/berita/{{.Lblog.Slug}}">{{.Lblog.Title}}</a></h2>
                         <ul class="post-meta mb-0">
-                            <li class="post-date"><i class="uil uil-calendar-alt"></i><span>{latest->created_at->format('d M Y')}</span></li>
-                            <li class="post-author"><a href="/berita/slug"><i class="uil uil-user"></i><span>By {latest->author}</span></a></li>
+                            <li class="post-date"><i class="uil uil-calendar-alt"></i><span>{{.Lblog.CreatedAt}}</span></li>
+                            <li class="post-author"><a href="/berita/{{.Lblog.Slug}}"><i class="uil uil-user"></i><span>By {{.Lblog.Author}}</span></a></li>
                         </ul>
                         <!-- /.post-meta -->
                     </div>
@@ -370,25 +370,25 @@
             <!-- /column -->
             <div class="col-lg-4">
                 <div class="row gy-10">
-                    <!-- foreach($beritas as $key => $berita) -->
+                    {{range $index, $val := .Blogs.Data}}
                     <div class="col-md-6 col-lg-12">
                         <article class="post">
-                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="/berita/slug"> <img src="" alt="" /></a>
+                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="/berita/{{$val.Slug}}"> <img src="" alt="" /></a>
                                 <figcaption>
                                     <h5 class="from-top mb-0">Read More</h5>
                                 </figcaption>
                             </figure>
                             <div class="post-header">
                                 <div class="post-category text-line">
-                                    <a href="/berita/slug" class="hover" rel="category">{berita->blog_category->title}</a>
+                                    <a href="/berita/{{$val.Slug}}" class="hover" rel="category">{{$val.BlogCategoryId}}</a>
                                 </div>
                                 <!-- /.post-category -->
-                                <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="/berita/slug">{berita->title}</a></h2>
+                                <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="/berita/{{$val.Slug}}">{{$val.Title}}</a></h2>
                             </div>
                             <!-- /.post-header -->
                             <div class="post-footer">
                                 <ul class="post-meta">
-                                    <li class="post-date"><i class="uil uil-calendar-alt"></i><span>{berita->created_at->format('d M Y')}</span></li>
+                                    <li class="post-date"><i class="uil uil-calendar-alt"></i><span>{{$val.CreatedAt}}</span></li>
                                     <!-- <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>4</a></li> -->
                                 </ul>
                                 <!-- /.post-meta -->
@@ -397,7 +397,7 @@
                         </article>
                         <!-- /.post -->
                     </div>
-                    <!-- endforeach -->
+                    {{end}}
 
                     <!-- /column -->
                 </div>
@@ -411,57 +411,6 @@
 </section>
 
 <section class="wrapper bg-light wrapper-border">
-    <div class="container py-8 pt-md-16">
-        <div class="row gx-lg-8 gx-xl-12 gy-10 gy-lg-0">
-            <div class="col-lg-4 mt-lg-2">
-                <h2 class="display-4 mb-3">Publikasi</h2>
-                <p class="lead fs-lg mb-6 pe-xxl-5">{{.Homepage.PublikasiText}}</p>
-                <a href="/publikasi" class="btn btn-soft-primary rounded-pill">Lihat Semua</a>
-            </div>
-            <!-- /column -->
-            <div class="col-lg-8">
-                <div class="carousel owl-carousel blog grid-view mb-14 mb-md-16" data-margin="30" data-dots="true" data-autoplay="false" data-autoplay-timeout="5000" data-responsive='{"0":{"items": "1"}, "768":{"items": "2"}, "992":{"items": "2"}, "1200":{"items": "2"}}'>
-                    <!-- foreach($publikasis as $key => $publikasi) -->
-                    <div class="item">
-                        <article>
-                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="/publikasi/slug"> <img src="" alt="" /></a>
-                                <figcaption>
-                                    <h5 class="from-top mb-0">Read More</h5>
-                                </figcaption>
-                            </figure>
-                            <div class="post-header">
-                                <div class="post-category text-line">
-                                    <a href="/publikasi/slug" class="hover" rel="category">{publikasi->blog_category->title}</a>
-                                </div>
-                                <!-- /.post-category -->
-                                <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="/publikasi/slug">{publikasi->title}</a></h2>
-                            </div>
-                            <!-- /.post-header -->
-                            <div class="post-footer">
-                                <ul class="post-meta mb-0">
-                                    <li class="post-date"><i class="uil uil-calendar-alt"></i><span>{publikasi->created_at->format('d M Y')}</span></li>
-                                    <!-- <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>4</a></li> -->
-                                </ul>
-                                <!-- /.post-meta -->
-                            </div>
-                            <!-- /.post-footer -->
-                        </article>
-                        <!-- /article -->
-                    </div>
-                    <!-- endforeach -->
-
-                </div>
-                <!-- /.owl-carousel -->
-            </div>
-            <!-- /column -->
-        </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container -->
-</section>
-<!-- /section -->
-
-<section class="wrapper bg-light wrapper-border">
     <div class="container py-14 pt-md-16">
         <div class="row align-items-center mb-10">
             <div class="col-md-8 col-lg-9 col-xl-8 col-xxl-7 pe-xl-20">
@@ -473,17 +422,17 @@
             </div>
         </div>
         <div class="carousel owl-carousel grid-view" data-margin="30" data-dots="true" data-autoplay="false" data-autoplay-timeout="5000" data-responsive='{"0":{"items": "1"}, "768":{"items": "2"}, "992":{"items": "2"}, "1200":{"items": "3"}}'>
-            <!-- foreach($images as $image) -->
+            {{range $index, $val := .Galeris.Data}}
             <div class="item">
-                <figure class="rounded mb-6"><a href=""> <img src="" alt="" /></a></figure>
+                <figure class="rounded mb-6"><a href="/galeri/{{$val.Slug}}"> <img src="" alt="" /></a></figure>
                 <div class="project-details d-flex justify-content-center flex-column">
                     <div class="post-header">
-                        <div class="post-category text-line mb-3 text-yellow">{image->galeri_tag->title}</div>
-                        <h2 class="post-title h3">{image->title}</h2>
+                        <div class="post-category text-line mb-3 text-yellow">{{$val.GaleriTagId}}</div>
+                        <h2 class="post-title h3">{{$val.Title}}</h2>
                     </div>
                 </div>
             </div>
-            <!-- endforeach -->
+            {{end}}
         </div>
     </div>
 </section>

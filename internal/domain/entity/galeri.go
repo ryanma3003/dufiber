@@ -15,5 +15,5 @@ type Galeri struct {
 	Title       string `json:"title"`
 	Slug        string `json:"slug"`
 	Image       string `json:"image"`
-	GaleriTagId int    `json:"galeri_tag_id"`
+	GaleryTagId int    `json:"galeri_tag_id"`
 }

@@ -17,6 +17,7 @@ type FrontService interface {
 	ContactFirst(ctx context.Context) (dto.ContactResponse, error)
 	GaleriAll(ctx context.Context, limit, offset int) (dto.PaginationData, error)
 	FaqAll(ctx context.Context) ([]dto.FaqResponse, error)
+	LastBlog(ctx context.Context) (dto.BlogResponse, error)
 	BlogAll(ctx context.Context, limit, offset int) (dto.PaginationData, error)
 	BlogFindBySlug(ctx context.Context, slug string) (dto.BlogResponse, error)
 }
@@ -142,6 +143,21 @@ func (s *FrontServiceImpl) ContactFirst(ctx context.Context) (dto.ContactRespons
 		return helper.ToContactResponse(blocat), nil
 	})
 	return res.(dto.ContactResponse), err
+}
+
+func (s *FrontServiceImpl) LastBlog(ctx context.Context) (dto.BlogResponse, error) {
+	res, err := helper.WithTransaction(ctx, s.DB, func(tx *sql.Tx) (interface{}, error) {
+		blocat, err := s.FrontRepository.LatestBlog(ctx, tx)
+		if err != nil {
+			if err == sql.ErrNoRows {
+				return dto.BlogResponse{}, helper.NewErrorRowNotFound()
+			}
+			return dto.BlogResponse{}, err
+		}
+
+		return helper.ToBlogResponse(blocat), nil
+	})
+	return res.(dto.BlogResponse), err
 }
 
 func (s *FrontServiceImpl) BlogAll(ctx context.Context, limit, offset int) (dto.PaginationData, error) {
