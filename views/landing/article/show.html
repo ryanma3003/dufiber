@@ -6,7 +6,7 @@
                     <!-- /.post-category -->
                     <h1 class="display-1 mb-4 pt-10">{{.Blog.Title}}</h1>
                     <ul class="post-meta mb-5">
-                        <li class="post-date text-white"><i class="uil uil-calendar-alt"></i><span>blog date</span></li>
+                        <li class="post-date text-white"><i class="uil uil-calendar-alt"></i><span>{{.Blog.CreatedAt}}</span></li>
                         <li class="post-author"><a href="#" class="text-white"><i class="uil uil-user"></i><span>By {{.Blog.Author}}</span></a></li>
                     </ul>
                     <!-- /.post-meta -->
@@ -37,7 +37,7 @@
                                     <div class="post-footer d-md-flex flex-md-row justify-content-md-between align-items-center mt-8">
                                         <div>
                                             <ul class="list-unstyled tag-list mb-0">
-                                                <li><a href="#" class="btn btn-soft-ash btn-sm rounded-pill mb-0">blog category</a></li>
+                                                <li><a href="#" class="btn btn-soft-ash btn-sm rounded-pill mb-0">{{.Blog.BlogCategoryId}}</a></li>
                                             </ul>
                                         </div>
                                         <div class="mb-0 mb-md-2">

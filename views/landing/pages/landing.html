@@ -329,7 +329,7 @@
             </div>
             <!--/column -->
             <div class="col-md-4 col-lg-3 ms-md-auto text-md-end mt-5 mt-md-0">
-                <a href="/berita" class="btn btn-soft-primary rounded-pill mb-0">Lihat Semua</a>
+                <a href="/artikel" class="btn btn-soft-primary rounded-pill mb-0">Lihat Semua</a>
             </div>
             <!--/column -->
         </div>
@@ -347,13 +347,13 @@
                     <!-- /.post-slider -->
                     <div class="post-header mb-5">
                         <div class="post-category text-line">
-                            <a href="/berita/{{.Lblog.Slug}}" class="hover" rel="category">{{.Lblog.BlogCategoryId}}</a>
+                            <a href="/artikel/{{.Lblog.Slug}}" class="hover" rel="category">{{.Lblog.BlogCategoryId}}</a>
                         </div>
                         <!-- /.post-category -->
-                        <h2 class="post-title mt-1 mb-4"><a class="link-dark" href="/berita/{{.Lblog.Slug}}">{{.Lblog.Title}}</a></h2>
+                        <h2 class="post-title mt-1 mb-4"><a class="link-dark" href="/artikel/{{.Lblog.Slug}}">{{.Lblog.Title}}</a></h2>
                         <ul class="post-meta mb-0">
                             <li class="post-date"><i class="uil uil-calendar-alt"></i><span>{{.Lblog.CreatedAt}}</span></li>
-                            <li class="post-author"><a href="/berita/{{.Lblog.Slug}}"><i class="uil uil-user"></i><span>By {{.Lblog.Author}}</span></a></li>
+                            <li class="post-author"><a href="/artikel/{{.Lblog.Slug}}"><i class="uil uil-user"></i><span>By {{.Lblog.Author}}</span></a></li>
                         </ul>
                         <!-- /.post-meta -->
                     </div>
@@ -373,17 +373,17 @@
                     {{range $index, $val := .Blogs.Data}}
                     <div class="col-md-6 col-lg-12">
                         <article class="post">
-                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="/berita/{{$val.Slug}}"> <img src="" alt="" /></a>
+                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="/artikel/{{$val.Slug}}"> <img src="" alt="" /></a>
                                 <figcaption>
                                     <h5 class="from-top mb-0">Read More</h5>
                                 </figcaption>
                             </figure>
                             <div class="post-header">
                                 <div class="post-category text-line">
-                                    <a href="/berita/{{$val.Slug}}" class="hover" rel="category">{{$val.BlogCategoryId}}</a>
+                                    <a href="/artikel/{{$val.Slug}}" class="hover" rel="category">{{$val.BlogCategoryId}}</a>
                                 </div>
                                 <!-- /.post-category -->
-                                <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="/berita/{{$val.Slug}}">{{$val.Title}}</a></h2>
+                                <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="/artikel/{{$val.Slug}}">{{$val.Title}}</a></h2>
                             </div>
                             <!-- /.post-header -->
                             <div class="post-footer">

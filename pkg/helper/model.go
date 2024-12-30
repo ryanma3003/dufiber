@@ -39,6 +39,7 @@ func ToBlogResponse(blog entity.Blog) dto.BlogResponse {
 		Id:             blog.Id,
 		Title:          blog.Title,
 		Slug:           blog.Slug,
+		Content:        blog.Content,
 		Image:          blog.Image,
 		Author:         blog.Author,
 		UserId:         blog.UserId,
