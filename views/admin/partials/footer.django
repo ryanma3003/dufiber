@@ -1,3 +1,0 @@
-<footer class="footer text-center text-muted">
-    © {{date('Y')}} Daulat Umat <a href="https://wrappixel.com"></a>.
-</footer>

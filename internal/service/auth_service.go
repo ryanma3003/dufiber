@@ -57,7 +57,17 @@ func (s *AuthServiceImpl) LoginUser(ctx context.Context, req *dto.LoginInput) (d
 			return dto.LoginResponse{}, err
 		}
 
-		return dto.LoginResponse{Token: token}, nil
+		return dto.LoginResponse{
+			Id:        user.Id,
+			Token:     token,
+			Name:      user.Username,
+			Username:  user.Username,
+			Password:  user.Password,
+			Email:     user.Email,
+			Role:      user.Role,
+			CreatedAt: user.CreatedAt,
+			UpdatedAt: user.UpdatedAt,
+		}, nil
 	})
 
 	return res.(dto.LoginResponse), err

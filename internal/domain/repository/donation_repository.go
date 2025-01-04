@@ -32,6 +32,10 @@ type DonationRepository interface {
 	FindByID(ctx context.Context, tx *sql.Tx, id int) (entity.Donation, error)
 	FindAllWithPagination(ctx context.Context, tx *sql.Tx, limit, offset int) ([]entity.Donation, error)
 	FindTotal(ctx context.Context, tx *sql.Tx) (int, error)
+	FindTotalDonatur(ctx context.Context, tx *sql.Tx) (int, error)
+	FindTotalZakat(ctx context.Context, tx *sql.Tx) (int, error)
+	FindTotalInfaq(ctx context.Context, tx *sql.Tx) (int, error)
+	FindTotalWakaf(ctx context.Context, tx *sql.Tx) (int, error)
 }
 
 type HargaZakatRepository interface {

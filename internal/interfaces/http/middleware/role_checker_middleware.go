@@ -11,7 +11,7 @@ import (
 func IsAdmin(c *fiber.Ctx) error {
 	user := c.Locals("user").(dto.UserSession)
 
-	if user.Role != 1 {
+	if user.Role != "administrator" {
 		return helper.RespondError(c, fiber.StatusUnauthorized, "Unauthorized: not an admin")
 	}
 
@@ -21,7 +21,7 @@ func IsAdmin(c *fiber.Ctx) error {
 func IsSuperAdmin(c *fiber.Ctx) error {
 	user := c.Locals("user").(dto.UserSession)
 
-	if user.Role != 3 {
+	if user.Role != "super administrator" {
 		return helper.RespondError(c, fiber.StatusUnauthorized, "Unauthorized: not a super admin")
 	}
 
@@ -49,7 +49,7 @@ func IsSuperAdminOrIsSelf(c *fiber.Ctx) error {
 		return helper.RespondError(c, fiber.StatusBadRequest, "Invalid ID")
 	}
 
-	if user.Role != 3 && user.Id != id {
+	if user.Role != "super administrator" && user.Id != id {
 		return helper.RespondError(c, fiber.StatusUnauthorized, "Unauthorized: not a super admin or not the user")
 	}
 

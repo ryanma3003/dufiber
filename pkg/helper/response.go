@@ -36,3 +36,30 @@ func RespondError(c *fiber.Ctx, statusCode int, message string) error {
 		"message": message,
 	})
 }
+
+func RespondErrorHtmlLogin(c *fiber.Ctx, statusCode int, message string) error {
+	csrfToken := c.Locals("csrf").(string)
+	return c.Status(statusCode).Render("admin/auth/login", fiber.Map{
+		"Error":   true,
+		"Token":   csrfToken,
+		"Message": message,
+	}, "admin/layouts/app")
+}
+
+func RespondErrorHtmlDashboard(c *fiber.Ctx, statusCode int, message string, template string) error {
+	csrfToken := c.Locals("csrf").(string)
+	return c.Status(statusCode).Render(template, fiber.Map{
+		"Error":   true,
+		"Token":   csrfToken,
+		"Message": message,
+	}, "admin/template")
+}
+
+func RespondErrorHtmlFront(c *fiber.Ctx, statusCode int, message string, template string) error {
+	csrfToken := c.Locals("csrf").(string)
+	return c.Status(statusCode).Render(template, fiber.Map{
+		"Error":   true,
+		"Token":   csrfToken,
+		"Message": message,
+	}, "landing/template")
+}

@@ -5,6 +5,10 @@ type PaginationData struct {
 	Data      interface{}
 }
 
+type TotalData struct {
+	TotalData int
+}
+
 type WebResponse struct {
 	Errors  bool        `json:"errors"`
 	Message string      `json:"message"`

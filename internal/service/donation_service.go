@@ -18,6 +18,10 @@ type DonationService interface {
 	Create(ctx context.Context, req *dto.DonationCreate) (dto.DonationResponse, error)
 	Update(ctx context.Context, req *dto.DonationUpdate) error
 	Delete(ctx context.Context, id int) error
+	FindTotalDonatur(ctx context.Context) (dto.TotalData, error)
+	FindTotalZakat(ctx context.Context) (dto.TotalData, error)
+	FindTotalInfaq(ctx context.Context) (dto.TotalData, error)
+	FindTotalWakaf(ctx context.Context) (dto.TotalData, error)
 }
 
 type DonationServiceImpl struct {
@@ -169,4 +173,64 @@ func (s *DonationServiceImpl) Delete(ctx context.Context, id int) error {
 	})
 
 	return err
+}
+
+func (s *DonationServiceImpl) FindTotalDonatur(ctx context.Context) (dto.TotalData, error) {
+	res, err := helper.WithTransaction(ctx, s.DB, func(tx *sql.Tx) (interface{}, error) {
+		totalData, err := s.DonationRepository.FindTotalDonatur(ctx, tx)
+		if err != nil {
+			return dto.TotalData{}, err
+		}
+
+		return dto.TotalData{
+			TotalData: totalData,
+		}, nil
+	})
+
+	return res.(dto.TotalData), err
+}
+
+func (s *DonationServiceImpl) FindTotalZakat(ctx context.Context) (dto.TotalData, error) {
+	res, err := helper.WithTransaction(ctx, s.DB, func(tx *sql.Tx) (interface{}, error) {
+		totalData, err := s.DonationRepository.FindTotalWakaf(ctx, tx)
+		if err != nil {
+			return dto.TotalData{}, err
+		}
+
+		return dto.TotalData{
+			TotalData: totalData,
+		}, nil
+	})
+
+	return res.(dto.TotalData), err
+}
+
+func (s *DonationServiceImpl) FindTotalInfaq(ctx context.Context) (dto.TotalData, error) {
+	res, err := helper.WithTransaction(ctx, s.DB, func(tx *sql.Tx) (interface{}, error) {
+		totalData, err := s.DonationRepository.FindTotalInfaq(ctx, tx)
+		if err != nil {
+			return dto.TotalData{}, err
+		}
+
+		return dto.TotalData{
+			TotalData: totalData,
+		}, nil
+	})
+
+	return res.(dto.TotalData), err
+}
+
+func (s *DonationServiceImpl) FindTotalWakaf(ctx context.Context) (dto.TotalData, error) {
+	res, err := helper.WithTransaction(ctx, s.DB, func(tx *sql.Tx) (interface{}, error) {
+		totalData, err := s.DonationRepository.FindTotalWakaf(ctx, tx)
+		if err != nil {
+			return dto.TotalData{}, err
+		}
+
+		return dto.TotalData{
+			TotalData: totalData,
+		}, nil
+	})
+
+	return res.(dto.TotalData), err
 }

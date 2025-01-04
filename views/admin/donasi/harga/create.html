@@ -1,0 +1,62 @@
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb m-0 p-0">
+                        <li class="breadcrumb-item"><a href="/duadmin/dashboard" class="text-muted">Home</a></li>
+                        <li class="breadcrumb-item text-muted active" aria-current="page">Zakat</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                
+                <div class="card-body" style="overflow-x:auto;">
+                    <div class="d-flex align-items-center mb-4">
+                        <h4 class="card-title">Create Harga</h4>
+                    </div>
+                    <form action="/duadmin/harga-zakat" method="POST" enctype="multipart/form-data">
+                        csrf here
+                        <!-- Input Groups -->
+                        <div class="form-group mb-3">
+                            <label for="title">Nama</label>
+                            <input type="text" value="" name="title" class="form-control {$errors->first('title') ? 'is-invalid': ''}" id="title">
+                            <span class="invalid-feedback">{errors->first('title')}</span> 
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group mb-3">
+                                    <label for="donation_list">Jenis</label>
+                                    <select name="donation_list" id="donation_list" class="form-control custom-select {$errors->first('donation_list') ? 'is-invalid': ''}">
+                                        <option value="">Pick Tag</option>
+                                        <!-- foreach($donation_lists as $donation_list) -->
+                                        <option value="{$donation_list->id}">{$donation_list->title}</option>
+                                        <!-- endforeach -->
+                                    </select>
+                                    <span class="invalid-feedback">{$errors->first('donation_list')}</span> 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="price">Harga</label>
+                            <input type="text" value="{old('price')}" name="price" class="form-control numberOnly {$errors->first('price') ? 'is-invalid': ''}" id="price">
+                            <span class="invalid-feedback">{$errors->first('price')}</span> 
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <button type="submit" class="mb-2 btn btn-sm btn-outline-success mr-1">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
